@@ -1,6 +1,10 @@
 # Tryck & studs!
 
-En hemsida att lära sig med, med tio färgglada leksaker: brödrost, raket, ballong, blomma, ägg, present, trumma, glass, stjärna och groda. Tryck direkt på figurerna för att starta animationerna. Raketen startas med den stora röda knappen. Brödrostens spak går fortfarande att dra. Alla går att använda igen, även med tangentbordets Tab och Enter eller mellanslag. Trumman visar en animerad trumvirvel utan ljud.
+En hemsida att lära sig med, med tjugo färgglada leksaker. Tryck direkt på figurerna för att starta animationerna. Raketen startas genom att trycka på raketen eller den stora röda knappen, och fyller skärmens nederkant med eld och rök. Klick på sidan sprider stjärnstoft över bakgrunden. Effekterna försvinner efter en stund och blockerar inte andra klick.
+
+Brödrostens spak går fortfarande att dra. Glassen får strössel och grodan jagar en fluga, gör en volt och plaskar i sin damm. De tio senaste figurerna är robot, anka, fjäril, bil, bi, dinosaurie, enhörning, snögubbe, fotboll och regnbåge.
+
+Alla går att använda igen, även med tangentbordets Tab och Enter eller mellanslag. Trumman visar en animerad trumvirvel utan ljud. Sidan anpassar rörelserna om du har valt minskad rörelse i datorns eller mobilens inställningar.
 
 ## Uppdatera ditt befintliga GitHub-projekt
 
@@ -8,7 +12,7 @@ En hemsida att lära sig med, med tio färgglada leksaker: brödrost, raket, bal
 2. Klicka på **Repository → Show in Explorer**.
 3. Kopiera de fyra nya filerna till projektmappen. Välj att ersätta de gamla filerna.
 4. Dubbelklicka på `index.html` för att prova uppdateringen lokalt.
-5. I GitHub Desktop skriver du `Åtta nya leksaker och justerad brödskiva` under **Summary** och klickar på **Commit to main**.
+5. I GitHub Desktop skriver du `Tjugo figurer, stjärnstoft och raketeld` under **Summary** och klickar på **Commit to main**.
 6. Klicka på **Push origin**. GitHub Pages uppdaterar den befintliga hemsidan efter en stund. Uppdatera webbläsaren för att se den nya versionen.
 
 ## Öppna hemsidan

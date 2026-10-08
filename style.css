@@ -1,8 +1,8 @@
 /* CSS bestämmer färger, former, placering och animationer. */
 :root { font-family: "Trebuchet MS", system-ui, sans-serif; color: #302252; background: #fff7e6; font-synthesis: none; }
 * { box-sizing: border-box; }
-body { margin: 0; background-image: radial-gradient(#e8d9b8 1.5px, transparent 1.5px); background-size: 24px 24px; }
-main { max-width: 1060px; margin: auto; padding: 48px 24px 24px; }
+body { margin: 0; isolation: isolate; background-image: radial-gradient(#e8d9b8 1.5px, transparent 1.5px); background-size: 24px 24px; }
+main { position: relative; z-index: 1; max-width: 1060px; margin: auto; padding: 48px 24px 24px; }
 header { text-align: center; margin-bottom: 40px; }
 .eyebrow { display: inline-block; background: #fff; border: 2px solid #302252; border-radius: 30px; padding: 8px 16px; font-size: .85rem; font-weight: 800; letter-spacing: .12em; transform: rotate(-3deg); }
 h1 { font-size: clamp(2.8rem, 7vw, 5rem); letter-spacing: -.055em; margin: 16px 0 8px; line-height: 1.1; }
@@ -21,7 +21,9 @@ h2 { margin: 0; font-size: 1.5rem; }
 .slot { position: absolute; top: 10px; left: 22px; right: 22px; height: 13px; border-radius: 50%; background: #302252; }
 .face { position: absolute; top: 40px; left: 38px; font-size: 2rem; font-weight: 800; }
 .dial { position: absolute; width: 21px; height: 21px; border: 3px solid #302252; border-radius: 50%; background: #fff7e6; bottom: 18px; right: 16px; }
-.bread { position: absolute; left: calc(50% - 70px); bottom: 142px; font-size: 80px; line-height: 1; z-index: 1; }
+.bread { position: absolute; left: calc(50% - 58px); bottom: 115px; width: 90px; height: 76px; z-index: 1; }
+.bread-slice { display: block; position: relative; width: 90px; height: 76px; background: #ffedb2; border: 6px solid #c87930; border-radius: 24px 24px 12px 12px; box-shadow: inset 0 0 0 3px #ffe5a0; }
+.bread-slice span { display: block; padding-top: 15px; font-size: 23px; font-weight: 800; color: #7a451e; }
 .lever-track { position: absolute; left: calc(50% + 88px); bottom: 44px; height: 92px; width: 10px; border-radius: 20px; background: #302252; z-index: 3; }
 .lever { position: absolute; left: -14px; top: 0; width: 44px; height: 30px; padding: 0; border: 3px solid #302252; border-radius: 10px; background: #55d7d0; cursor: grab; touch-action: none; box-shadow: 2px 3px 0 #302252; }
 .lever::before { content: ''; position: absolute; inset: -10px; }
@@ -48,7 +50,7 @@ button:disabled { cursor: wait; }
 #launch:active:not(:disabled) { transform: translateY(5px); box-shadow: 0 2px 0 #8e1025, 0 5px 0 #302252; }
 .toast-scene.toasting .bread { transform: translateY(38px); transition: transform .3s; }
 .toast-scene.popping .bread { animation: bread-hop 1.4s ease-in-out; }
-.toast-scene.popping .bread { z-index: 4; }
+.toast-scene.popping .bread { z-index: 1; }
 .rocket-scene.flying .rocket { animation: blast-off 1.5s ease-in forwards; }
 .rocket-scene.preparing .rocket { animation: rumble .15s infinite alternate; }
 @keyframes bread-hop { 0% { transform: translateY(38px) rotate(0); } 35% { transform: translateY(-100px) rotate(-20deg); } 65% { transform: translateY(-70px) rotate(15deg); } 100% { transform: translateY(0) rotate(0); } }
@@ -72,17 +74,62 @@ footer { text-align: center; font-size: .9rem; margin-top: 35px; } footer span {
 [data-scene="drum"].active .object { animation: drumbeat .3s ease-in-out 6; }
 [data-scene="icecream"].active .object { animation: wobble 1.8s ease-in-out both; }
 [data-scene="icecream"] .effect { top: 40px; }
-[data-scene="icecream"].active .effect { animation: cherry-drop 1.8s ease-in-out both; }
+[data-scene="icecream"].active .effect { animation: none; opacity: 1; }
 [data-scene="wishing"].active .object { animation: star-spin 1.8s ease-in-out both; }
-[data-scene="frog"].active .object { animation: frog-hop 1.8s ease-in-out both; }
+[data-scene="frog"].active .object { animation: frog-adventure 3.2s ease-in-out both; }
 @keyframes sparkles { 0%,100% { opacity: 0; transform: translateY(15px) scale(.5); } 25%,70% { opacity: 1; transform: translateY(-10px) scale(1); } }
 @keyframes float-away { 0% { transform: translate(0,0); opacity: 1; } 70%,85% { transform: translate(35px,-210px) rotate(15deg); opacity: 0; } 86% { transform: translate(0,30px); opacity: 0; } 100% { transform: translate(0,0); opacity: 1; } }
 @keyframes bloom { 0%,100% { transform: scale(1); } 45%,65% { transform: scale(1.45) rotate(8deg); } 80% { transform: scale(1.15) rotate(-8deg); } }
 @keyframes surprise { 0%,100% { transform: translateY(0) rotate(0); } 15% { transform: rotate(-12deg); } 30% { transform: rotate(12deg); } 55% { transform: translateY(-40px) scale(1.2); } 75% { transform: translateY(0) scale(.95); } }
 @keyframes drumbeat { 0%,100% { transform: scale(1); } 50% { transform: scale(1.12,.88) rotate(-5deg); } }
 @keyframes wobble { 0%,100% { transform: rotate(0); } 25%,65% { transform: rotate(-12deg); } 45%,80% { transform: rotate(12deg); } }
-@keyframes cherry-drop { 0% { opacity: 0; transform: translateY(-65px); } 30%,75% { opacity: 1; transform: translateY(18px); } 100% { opacity: 0; transform: translateY(18px); } }
 @keyframes star-spin { 0% { transform: rotate(0) scale(1); } 50% { transform: rotate(180deg) scale(1.35); } 100% { transform: rotate(360deg) scale(1); } }
-@keyframes frog-hop { 0%,100% { transform: translateY(0) scale(1); } 12%,65% { transform: translateY(10px) scale(1.15,.8); } 35% { transform: translateY(-105px) rotate(-12deg); } 80% { transform: translateY(-45px) rotate(8deg); } }
+.sprinkles { width: 110px; height: 140px; left: calc(50% - 55px); }
+.sprinkles i { position: absolute; top: 0; width: 5px; height: 12px; border-radius: 3px; background: var(--sprinkle-color); opacity: 0; }
+.sprinkles i:nth-child(6n+1) { left: 8px; }.sprinkles i:nth-child(6n+2) { left: 25px; }.sprinkles i:nth-child(6n+3) { left: 42px; }.sprinkles i:nth-child(6n+4) { left: 59px; }.sprinkles i:nth-child(6n+5) { left: 76px; }.sprinkles i:nth-child(6n) { left: 93px; }
+.active .sprinkles i { animation: sprinkle-rain 1.4s ease-in both; animation-delay: calc(var(--i) * .018s); }
+@keyframes sprinkle-rain { 0% { opacity: 0; transform: translateY(-25px) rotate(0); } 15% { opacity: 1; } 70%,85% { opacity: 1; transform: translateY(77px) rotate(140deg); } 100% { opacity: 0; transform: translateY(80px) rotate(170deg); } }
+.frog-pond { position: absolute; bottom: 46px; width: 180px; height: 38px; border: 3px solid #218cad; border-radius: 50%; background: #64d5ef; }
+.frog-fly { position: absolute; top: 50px; right: 24%; font-size: 28px; }
+.active .frog-fly { animation: fly-chase 3.2s ease-in-out both; }
+[data-scene="frog"].active .frog-splash { top: auto; bottom: 55px; animation: pond-splash 3.2s ease-in-out both; }
+@keyframes frog-adventure { 0%,100% { transform: translate(0,0); } 10% { transform: translateY(16px) scale(1.15,.75); } 25% { transform: translate(-55px,-90px) rotate(-20deg); } 40% { transform: translate(-45px,12px) scale(1.15,.85); } 60% { transform: translate(45px,-115px) rotate(345deg); } 76% { transform: translate(30px,18px) rotate(360deg) scale(1.2,.7); } 90% { transform: translate(0,-20px) rotate(360deg); } }
+@keyframes fly-chase { 0%,100% { transform: translate(0,0); opacity: 1; } 30% { transform: translate(-90px,15px); } 60% { transform: translate(10px,-25px); } 75%,90% { opacity: 0; } }
+@keyframes pond-splash { 0%,65%,100% { opacity: 0; transform: scale(.5); } 78%,86% { opacity: 1; transform: scale(2) translateY(-10px); } }
+.robot-card { background: #9de1f5; }.duck-card { background: #ffe276; }.butterfly-card { background: #ffafd7; }.car-card { background: #99e4c5; }.bee-card { background: #ffd461; }.dinosaur-card { background: #b3e47e; }.unicorn-card { background: #c9b1ff; }.snowman-card { background: #a7ddff; }.football-card { background: #ffb48f; }.rainbow-card { background: #ffc2e1; }
+[data-scene="robot"].active .object { animation: robot-dance 1.8s ease-in-out both; }
+[data-scene="duck"].active .object { animation: duck-dive 1.8s ease-in-out both; }
+[data-scene="butterfly"].active .object { animation: butterfly-flight 1.8s ease-in-out both; }
+[data-scene="car"].active .object { animation: car-drive 1.8s ease-in-out both; }
+[data-scene="bee"].active .object { animation: bee-buzz 1.8s ease-in-out both; }
+[data-scene="dinosaur"].active .object { animation: dino-stomp 1.8s ease-in-out both; }
+[data-scene="unicorn"].active .object { animation: unicorn-magic 1.8s ease-in-out both; }
+[data-scene="snowman"].active .object { animation: snow-spin 1.8s ease-in-out both; }
+[data-scene="football"].active .object { animation: ball-bounce 1.8s ease-in-out both; }
+[data-scene="rainbow"].active .object { animation: rainbow-grow 1.8s ease-in-out both; }
+@keyframes robot-dance { 0%,100% { transform: rotate(0); } 15%,55% { transform: translate(-20px,-15px) rotate(-18deg); } 35%,75% { transform: translate(20px,-15px) rotate(18deg); } 90% { transform: translateY(-35px); } }
+@keyframes duck-dive { 0%,100% { transform: translateY(0); } 25% { transform: translateY(-30px) rotate(-15deg); } 55% { transform: translateY(55px) rotate(25deg) scale(.8); } 80% { transform: translateY(-15px) rotate(-10deg); } }
+@keyframes butterfly-flight { 0%,100% { transform: translate(0,0) scaleX(1); } 20% { transform: translate(-50px,-35px) scaleX(.6) rotate(-15deg); } 40% { transform: translate(20px,-80px) scaleX(1); } 60% { transform: translate(65px,-30px) scaleX(.6) rotate(20deg); } 80% { transform: translate(-25px,0) scaleX(1); } }
+@keyframes car-drive { 0%,100% { transform: translateX(0); } 30% { transform: translateX(-85px) rotate(-8deg); } 65% { transform: translateX(85px) rotate(8deg); } 85% { transform: translateX(25px) rotate(-5deg); } }
+@keyframes bee-buzz { 0%,100% { transform: translate(0,0); } 20% { transform: translate(-45px,-60px) rotate(-25deg); } 40% { transform: translate(50px,-70px) rotate(25deg); } 60% { transform: translate(65px,20px) rotate(-15deg); } 80% { transform: translate(-40px,30px) rotate(15deg); } }
+@keyframes dino-stomp { 0%,100% { transform: translateY(0); } 20% { transform: translate(-25px,-25px) rotate(-12deg); } 35%,70% { transform: translateY(15px) scale(1.1,.85); } 55% { transform: translate(25px,-35px) rotate(12deg); } 85% { transform: scale(1.2); } }
+@keyframes unicorn-magic { 0%,100% { transform: scale(1); filter: hue-rotate(0); } 40% { transform: translateY(-40px) rotate(-12deg) scale(1.15); filter: hue-rotate(90deg); } 70% { transform: translateY(-20px) rotate(12deg); filter: hue-rotate(180deg); } }
+@keyframes snow-spin { 0% { transform: rotate(0); } 50% { transform: translateY(-35px) rotate(180deg) scale(.9); } 100% { transform: rotate(360deg); } }
+@keyframes ball-bounce { 0%,100% { transform: translateY(0) rotate(0); } 15% { transform: translateY(-100px) rotate(80deg); } 35%,65%,90% { transform: translateY(50px) scale(1.15,.8) rotate(160deg); } 50% { transform: translateY(-55px) rotate(200deg); } 78% { transform: translateY(-15px) rotate(280deg); } }
+@keyframes rainbow-grow { 0%,100% { transform: scale(1); } 30% { transform: scale(.6) translateY(35px); opacity: .4; } 65% { transform: scale(1.4) translateY(-15px); opacity: 1; } 85% { transform: scale(1.2); } }
+.stardust { position: fixed; inset: 0; z-index: 0; pointer-events: none; overflow: hidden; }
+.stardust span { position: absolute; font-size: var(--size); color: var(--color); opacity: 0; }
+.stardust.shimmering span { animation: dust-twinkle 1.8s ease-in-out both; animation-delay: var(--delay); }
+@keyframes dust-twinkle { 0%,100% { opacity: 0; transform: translateY(16px) scale(.3) rotate(0); } 25%,60% { opacity: .9; transform: translateY(-12px) scale(1) rotate(35deg); } }
+.launch-effects { position: fixed; left: 0; right: 0; bottom: 0; height: 170px; z-index: 5; pointer-events: none; overflow: hidden; opacity: 0; transition: opacity .35s; }
+.launch-effects.burning { opacity: 1; }
+.fire-bed, .smoke-bed { position: absolute; inset: 0; }
+.fire-bed span { position: absolute; bottom: -18px; font-size: clamp(55px, 7vw, 100px); transform: translateX(-50%); }
+.burning .fire-bed span { animation: flame-dance .55s ease-in-out infinite alternate; animation-delay: var(--delay); }
+.smoke-bed span { position: absolute; bottom: 15px; width: 85px; height: 85px; border-radius: 50%; background: radial-gradient(circle, #7b738cbb, #b6adc466 60%, transparent 72%); opacity: 0; }
+.burning .smoke-bed span { animation: smoke-rise 1.7s ease-out infinite; animation-delay: var(--delay); }
+@keyframes flame-dance { from { transform: translateX(-50%) scale(.85, .85) rotate(-8deg); } to { transform: translateX(-50%) scale(1.1,1.2) rotate(8deg); } }
+@keyframes smoke-rise { 0% { opacity: 0; transform: translate(-50%,0) scale(.5); } 20% { opacity: .8; } 100% { opacity: 0; transform: translate(calc(-50% + var(--drift)),-125px) scale(1.7); } }
 @media (max-width: 700px) { main { padding: 30px 20px; } .playground { grid-template-columns: 1fr; gap: 30px; } header { margin-bottom: 28px; } .toy { padding: 20px; } }
 @media (prefers-reduced-motion: reduce) { *, *::before { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; } }
+@media (prefers-reduced-motion: reduce) { .stardust.shimmering span { animation: none !important; opacity: .65; } .burning .fire-bed span { animation: none !important; } .burning .smoke-bed span { animation: none !important; opacity: .35; } }
