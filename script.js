@@ -22,6 +22,7 @@ let ignoreNextClick = false;
 async function toastBread() {
   if (toasting) return;
   toasting = true;
+  fillBackground('toast', toasterButton);
   lever.disabled = true;
   breadButton.disabled = true;
   toasterButton.disabled = true;
@@ -55,7 +56,7 @@ lever.addEventListener('pointerdown', (event) => {
   lever.setPointerCapture(event.pointerId);
 });
 
-// Alla åtta nya leksaker använder samma funktion, med olika rörelser i CSS.
+// Figurerna delar samma klickfunktion, men har egna rörelser och bakgrunder.
 const toySettings = {
   balloon: { message: 'Hej då, ballongen! Oj, den kom tillbaka.', emoji: '🎈' },
   flower: { message: 'Plask! Nu växer det så det knakar.', emoji: '🌷' },
@@ -65,13 +66,13 @@ const toySettings = {
   icecream: { message: 'Strösselregn! Alla färger på toppen!', emoji: '🍦' },
   wishing: { message: 'En snurr för din hemliga önskan!', emoji: '⭐' },
   frog: { message: 'Kvack! Jaga flugan, skutta, snurra… PLASK!', emoji: '🐸', duration: 3200 },
-  robot: { message: 'Beep boop! Robotdisco!', emoji: '🤖' },
+  robot: { message: 'Beep boop! Robotarna kommer fram — dags för disco!', emoji: '🤖', duration: 3600 },
   duck: { message: 'Kvack kvack! Plask i badet!', emoji: '🦆' },
   butterfly: { message: 'Fladder, fladder! En flygtur bland färgerna.', emoji: '🦋' },
-  car: { message: 'Tut tut! Full fart och tillbaka!', emoji: '🚗' },
+  car: { message: 'Tut tut! Ut ur kortet, runt skärmen och hem igen!', emoji: '🚗', duration: 4400, roam: true },
   bee: { message: 'Bzzzz! Där är min favoritblomma!', emoji: '🐝' },
   dinosaur: { message: 'Duns! Duns! Ett litet dinosaurievrål!', emoji: '🦖' },
-  unicorn: { message: 'Poff! En hel regnbåge av magi!', emoji: '🦄' },
+  unicorn: { message: 'Flyg, lilla enhörning! En magisk tur runt skärmen!', emoji: '🦄', duration: 4400, roam: true },
   snowman: { message: 'Snurr och snö! Vilket vinterkalas!', emoji: '⛄' },
   football: { message: 'Boing, boing, boing!', emoji: '⚽' },
   rainbow: { message: 'Regn, sol och alla regnbågens färger!', emoji: '🌈' }
@@ -86,6 +87,8 @@ document.querySelectorAll('[data-toy]').forEach(button => {
     const status = document.querySelector(`[data-status="${name}"]`);
     const object = scene.querySelector('.object');
     button.disabled = true;
+    fillBackground(name, button);
+    if (settings.roam && !reducedMotion.matches) roamScreen(name, button, scene, settings.duration);
     scene.classList.add('active');
     status.textContent = settings.message;
     if (settings.surprise) {
@@ -130,6 +133,7 @@ async function launchRocket() {
   if (launchButton.disabled) return;
   launchButton.disabled = true;
   rocketButton.disabled = true;
+  fillBackground('rocket', rocketButton);
   showLaunchEffects();
   launchButton.textContent = 'Gör dig redo…';
   rocketScene.classList.add('preparing');
@@ -188,4 +192,76 @@ function showLaunchEffects() {
   clearTimeout(fireTimer);
   launchEffects.classList.add('burning');
   fireTimer = setTimeout(() => launchEffects.classList.remove('burning'), 5200);
+}
+
+// Ett klick på kortets tomma yta använder samma knapp som figuren.
+// Klick på en riktig knapp hanteras bara av knappen själv.
+document.querySelectorAll('.toy').forEach(card => {
+  card.addEventListener('click', event => {
+    if (event.target.closest('button')) return;
+    const control = card.querySelector('[data-toy], #toaster, #launch');
+    if (control && !control.disabled) control.click();
+  });
+});
+
+const themeBackground = document.querySelector('#theme-background');
+const butterScreen = document.querySelector('#butter-screen');
+const screenActors = document.querySelector('#screen-actors');
+const backgroundThemes = {
+  toast: ['🧈'], rocket: ['🪐','⭐','☄️'], balloon: ['🎈'],
+  flower: ['🌼','🌸','🌷','💧'], egg: ['🐣','🐥','🥚'], gift: ['🎁','🧸','🎊'],
+  drum: ['♫','♪','🥁'], icecream: ['sprinkle'], wishing: ['⭐','✨','🌟'],
+  frog: ['🐸','🐸','💦'], robot: ['🤖','🤖','♫','♪'], duck: ['🦆','💦'],
+  butterfly: ['🦋','🌸'], car: ['💨','🏁','🚦'], bee: ['🐝','🌼'],
+  dinosaur: ['🦖','🦕','🌿'], unicorn: ['🌈','✨','🦄'],
+  snowman: ['❄','⛄','❄'], football: ['⚽','💫'], rainbow: ['🌈','💧','☀️']
+};
+let backgroundTimer;
+
+function fillBackground(name, source) {
+  clearTimeout(backgroundTimer);
+  themeBackground.replaceChildren();
+  themeBackground.className = `theme-background theme-${name}`;
+  butterScreen.classList.toggle('spread', name === 'toast');
+  const rect = source.getBoundingClientRect();
+  const originX = rect.left + rect.width / 2;
+  const originY = rect.top + rect.height / 2;
+  const palette = ['#ff3e8b','#ffc400','#17bfc5','#8947ef','#ff7045'];
+  for (let i = 0; i < 48; i++) {
+    const particle = document.createElement('span');
+    const symbols = backgroundThemes[name];
+    const symbol = symbols[i % symbols.length];
+    const targetX = (i % 8 + .2 + Math.random() * .6) / 8 * window.innerWidth;
+    const targetY = (Math.floor(i / 8) + .2 + Math.random() * .6) / 6 * window.innerHeight;
+    const duration = name === 'robot' ? 4200 : 4600;
+    particle.className = symbol === 'sprinkle' ? 'theme-particle sprinkle-particle' : 'theme-particle';
+    particle.textContent = symbol === 'sprinkle' ? '' : symbol;
+    particle.style.cssText = `left:${targetX}px;top:${targetY}px;--from-x:${originX-targetX}px;--from-y:${originY-targetY}px;--drift-x:${(Math.random()-.5)*150}px;--drift-y:${(Math.random()-.5)*150}px;--delay:${i*.008}s;--duration:${duration}ms;--particle-size:${24+Math.random()*30}px;--particle-color:${palette[i%palette.length]};--tilt:${(i%2?1:-1)*(15+i%4*10)}deg`;
+    themeBackground.append(particle);
+  }
+  backgroundTimer = setTimeout(() => {
+    themeBackground.replaceChildren();
+    butterScreen.classList.remove('spread');
+  }, reducedMotion.matches ? 1400 : 5200);
+}
+
+// Figuren får en kopia i ett lager utanför korten. CSS flyttar den
+// mellan punkter på skärmen och tillbaka till dess startposition.
+function roamScreen(name, button, scene, duration) {
+  const rect = button.getBoundingClientRect();
+  const size = Math.min(100, window.innerWidth * .22);
+  const startX = rect.left + rect.width / 2 - size / 2;
+  const startY = rect.top + rect.height / 2 - size / 2;
+  const right = Math.max(12, window.innerWidth - size - 16);
+  const bottom = Math.max(12, window.innerHeight - size - 16);
+  const actor = document.createElement('span');
+  actor.className = `screen-actor roaming-${name}`;
+  actor.textContent = toySettings[name].emoji;
+  actor.style.cssText = `left:${startX}px;top:${startY}px;--actor-size:${size}px;--duration:${duration}ms;--left-x:${16-startX}px;--right-x:${right-startX}px;--top-y:${16-startY}px;--bottom-y:${bottom-startY}px;--middle-y:${window.innerHeight*.45-startY}px`;
+  screenActors.append(actor);
+  scene.classList.add('roaming');
+  setTimeout(() => {
+    actor.remove();
+    scene.classList.remove('roaming');
+  }, duration);
 }

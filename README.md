@@ -2,6 +2,8 @@
 
 En hemsida att lära sig med, med tjugo färgglada leksaker. Tryck direkt på figurerna för att starta animationerna. Raketen startas genom att trycka på raketen eller den stora röda knappen, och fyller skärmens nederkant med eld och rök. Klick på sidan sprider stjärnstoft över bakgrunden. Effekterna försvinner efter en stund och blockerar inte andra klick.
 
+Tryck på en figur eller på dess kort. Varje leksak fyller bakgrunden med passande saker: grodor, blommor, ballonger, snö och annat. Brödrosten sprider ett halvtransparent gult smörlager över skärmen. Robotarna kommer fram bakom kortet och dansar. Bilen kör ut ur kortet och runt skärmen, och enhörningen flyger runt innan den återvänder. Effekterna försvinner automatiskt.
+
 Brödrostens spak går fortfarande att dra. Glassen får strössel och grodan jagar en fluga, gör en volt och plaskar i sin damm. De tio senaste figurerna är robot, anka, fjäril, bil, bi, dinosaurie, enhörning, snögubbe, fotboll och regnbåge.
 
 Alla går att använda igen, även med tangentbordets Tab och Enter eller mellanslag. Trumman visar en animerad trumvirvel utan ljud. Sidan anpassar rörelserna om du har valt minskad rörelse i datorns eller mobilens inställningar.
