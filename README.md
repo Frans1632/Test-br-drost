@@ -1,6 +1,6 @@
 # Tryck & studs!
 
-En hemsida att lära sig med, med tio färgglada leksaker: brödrost, raket, ballong, blomma, ägg, present, trumma, glass, stjärna och groda. Alla går att använda igen. Trumman visar en animerad trumvirvel utan ljud.
+En hemsida att lära sig med, med tio färgglada leksaker: brödrost, raket, ballong, blomma, ägg, present, trumma, glass, stjärna och groda. Tryck direkt på figurerna för att starta animationerna. Raketen startas med den stora röda knappen. Brödrostens spak går fortfarande att dra. Alla går att använda igen, även med tangentbordets Tab och Enter eller mellanslag. Trumman visar en animerad trumvirvel utan ljud.
 
 ## Uppdatera ditt befintliga GitHub-projekt
 

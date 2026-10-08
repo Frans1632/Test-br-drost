@@ -6,6 +6,9 @@ const launchButton = document.querySelector('#launch');
 const rocketScene = document.querySelector('#rocket-scene');
 const rocketStatus = document.querySelector('#rocket-status');
 const countdown = document.querySelector('#countdown');
+const breadButton = document.querySelector('#bread');
+const toasterButton = document.querySelector('#toaster');
+const rocketButtonLabel = launchButton.textContent;
 
 // En liten väntfunktion. Tiden anges i millisekunder: 1000 = en sekund.
 const wait = (milliseconds) => new Promise(resolve => setTimeout(resolve, milliseconds));
@@ -19,6 +22,8 @@ async function toastBread() {
   if (toasting) return;
   toasting = true;
   lever.disabled = true;
+  breadButton.disabled = true;
+  toasterButton.disabled = true;
   lever.style.top = '62px';
   toastScene.classList.add('toasting');
   toastStatus.textContent = 'Rostar… håll i hatten!';
@@ -30,9 +35,14 @@ async function toastBread() {
   await wait(1400);
   toastScene.classList.remove('popping');
   lever.disabled = false;
+  breadButton.disabled = false;
+  toasterButton.disabled = false;
   toasting = false;
   toastStatus.textContent = 'En gång till?';
 }
+
+breadButton.addEventListener('click', toastBread);
+toasterButton.addEventListener('click', toastBread);
 
 // Pointer-händelser fungerar både med mus och med fingret på en mobil.
 lever.addEventListener('pointerdown', (event) => {
@@ -123,6 +133,6 @@ launchButton.addEventListener('click', async () => {
   await wait(1800);
   rocketScene.classList.remove('flying');
   launchButton.disabled = false;
-  launchButton.textContent = 'Flyg igen!';
+  launchButton.textContent = rocketButtonLabel;
   rocketStatus.textContent = 'Tillbaka för ett nytt äventyr.';
 });
