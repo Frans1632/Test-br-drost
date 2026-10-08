@@ -21,7 +21,7 @@ h2 { margin: 0; font-size: 1.5rem; }
 .slot { position: absolute; top: 10px; left: 22px; right: 22px; height: 13px; border-radius: 50%; background: #302252; }
 .face { position: absolute; top: 40px; left: 38px; font-size: 2rem; font-weight: 800; }
 .dial { position: absolute; width: 21px; height: 21px; border: 3px solid #302252; border-radius: 50%; background: #fff7e6; bottom: 18px; right: 16px; }
-.bread { position: absolute; left: calc(50% - 70px); bottom: 127px; font-size: 80px; line-height: 1; z-index: 1; }
+.bread { position: absolute; left: calc(50% - 70px); bottom: 142px; font-size: 80px; line-height: 1; z-index: 1; }
 .lever-track { position: absolute; left: calc(50% + 88px); bottom: 44px; height: 92px; width: 10px; border-radius: 20px; background: #302252; z-index: 3; }
 .lever { position: absolute; left: -14px; top: 0; width: 44px; height: 30px; padding: 0; border: 3px solid #302252; border-radius: 10px; background: #55d7d0; cursor: grab; touch-action: none; box-shadow: 2px 3px 0 #302252; }
 .lever::before { content: ''; position: absolute; inset: -10px; }
@@ -41,11 +41,41 @@ button:focus-visible { outline: 4px solid #fff; outline-offset: 5px; }
 button:disabled { cursor: wait; }
 .toast-scene.toasting .bread { transform: translateY(38px); transition: transform .3s; }
 .toast-scene.popping .bread { animation: bread-hop 1.4s ease-in-out; }
+.toast-scene.popping .bread { z-index: 4; }
 .rocket-scene.flying .rocket { animation: blast-off 1.5s ease-in forwards; }
 .rocket-scene.preparing .rocket { animation: rumble .15s infinite alternate; }
-@keyframes bread-hop { 0% { transform: translateY(38px) rotate(0); } 35% { transform: translateY(-135px) rotate(-20deg); } 65% { transform: translateY(-100px) rotate(15deg); } 100% { transform: translateY(0) rotate(0); } }
+@keyframes bread-hop { 0% { transform: translateY(38px) rotate(0); } 35% { transform: translateY(-100px) rotate(-20deg); } 65% { transform: translateY(-70px) rotate(15deg); } 100% { transform: translateY(0) rotate(0); } }
 @keyframes blast-off { to { transform: translateY(-420px) rotate(-45deg); } }
 @keyframes rumble { from { transform: translateX(-2px) rotate(-45deg); } to { transform: translateX(2px) rotate(-45deg); } }
 footer { text-align: center; font-size: .9rem; margin-top: 35px; } footer span { color: #ed4e89; }
+.balloon-card { background: #8ce3ff; }.flower-card { background: #b9ee87; }
+.egg-card { background: #ffd68e; }.gift-card { background: #ff9fc6; }
+.drum-card { background: #ffab79; }.icecream-card { background: #8ce7ce; }
+.wishing-card { background: #b5baff; }.frog-card { background: #d1ed72; }
+.toy:nth-child(n+3):nth-child(odd) { transform: rotate(-.6deg); }
+.toy:nth-child(n+3):nth-child(even) { transform: rotate(.6deg); }
+.extra-scene { display: grid; place-items: center; }
+.extra-scene::before { content: ''; position: absolute; width: 210px; height: 210px; border-radius: 50%; background: #ffffff45; }
+.object { position: relative; display: inline-block; font-size: 112px; line-height: 1.2; z-index: 1; }
+.effect { position: absolute; top: 38px; font-size: 44px; opacity: 0; z-index: 2; pointer-events: none; }
+.extra-scene.active .effect { animation: sparkles 1.8s ease-in-out both; }
+[data-scene="balloon"].active .object { animation: float-away 1.8s ease-in both; }
+[data-scene="flower"].active .object { animation: bloom 1.8s ease-in-out both; }
+[data-scene="egg"].active .object, [data-scene="gift"].active .object { animation: surprise 1.8s ease-in-out both; }
+[data-scene="drum"].active .object { animation: drumbeat .3s ease-in-out 6; }
+[data-scene="icecream"].active .object { animation: wobble 1.8s ease-in-out both; }
+[data-scene="icecream"] .effect { top: 40px; }
+[data-scene="icecream"].active .effect { animation: cherry-drop 1.8s ease-in-out both; }
+[data-scene="wishing"].active .object { animation: star-spin 1.8s ease-in-out both; }
+[data-scene="frog"].active .object { animation: frog-hop 1.8s ease-in-out both; }
+@keyframes sparkles { 0%,100% { opacity: 0; transform: translateY(15px) scale(.5); } 25%,70% { opacity: 1; transform: translateY(-10px) scale(1); } }
+@keyframes float-away { 0% { transform: translate(0,0); opacity: 1; } 70%,85% { transform: translate(35px,-210px) rotate(15deg); opacity: 0; } 86% { transform: translate(0,30px); opacity: 0; } 100% { transform: translate(0,0); opacity: 1; } }
+@keyframes bloom { 0%,100% { transform: scale(1); } 45%,65% { transform: scale(1.45) rotate(8deg); } 80% { transform: scale(1.15) rotate(-8deg); } }
+@keyframes surprise { 0%,100% { transform: translateY(0) rotate(0); } 15% { transform: rotate(-12deg); } 30% { transform: rotate(12deg); } 55% { transform: translateY(-40px) scale(1.2); } 75% { transform: translateY(0) scale(.95); } }
+@keyframes drumbeat { 0%,100% { transform: scale(1); } 50% { transform: scale(1.12,.88) rotate(-5deg); } }
+@keyframes wobble { 0%,100% { transform: rotate(0); } 25%,65% { transform: rotate(-12deg); } 45%,80% { transform: rotate(12deg); } }
+@keyframes cherry-drop { 0% { opacity: 0; transform: translateY(-65px); } 30%,75% { opacity: 1; transform: translateY(18px); } 100% { opacity: 0; transform: translateY(18px); } }
+@keyframes star-spin { 0% { transform: rotate(0) scale(1); } 50% { transform: rotate(180deg) scale(1.35); } 100% { transform: rotate(360deg) scale(1); } }
+@keyframes frog-hop { 0%,100% { transform: translateY(0) scale(1); } 12%,65% { transform: translateY(10px) scale(1.15,.8); } 35% { transform: translateY(-105px) rotate(-12deg); } 80% { transform: translateY(-45px) rotate(8deg); } }
 @media (max-width: 700px) { main { padding: 30px 20px; } .playground { grid-template-columns: 1fr; gap: 30px; } header { margin-bottom: 28px; } .toy { padding: 20px; } }
 @media (prefers-reduced-motion: reduce) { *, *::before { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; } }

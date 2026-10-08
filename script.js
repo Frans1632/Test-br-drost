@@ -43,6 +43,43 @@ lever.addEventListener('pointerdown', (event) => {
   ignoreNextClick = false;
   lever.setPointerCapture(event.pointerId);
 });
+
+// Alla åtta nya leksaker använder samma funktion, med olika rörelser i CSS.
+const toySettings = {
+  balloon: { message: 'Hej då, ballongen! Oj, den kom tillbaka.', emoji: '🎈' },
+  flower: { message: 'Plask! Nu växer det så det knakar.', emoji: '🌷' },
+  egg: { message: 'Pip pip! En liten kyckling!', emoji: '🥚', surprise: '🐣' },
+  gift: { message: 'Tittut! En nalle till dig!', emoji: '🎁', surprise: '🧸' },
+  drum: { message: 'Bum, ba, bum! Vilken trumvirvel!', emoji: '🥁' },
+  icecream: { message: 'Ett körsbär på toppen. Mums!', emoji: '🍦' },
+  wishing: { message: 'En snurr för din hemliga önskan!', emoji: '⭐' },
+  frog: { message: 'Kvack! Ett jätteskutt och ett litet.', emoji: '🐸' }
+};
+
+document.querySelectorAll('[data-toy]').forEach(button => {
+  button.addEventListener('click', async () => {
+    if (button.disabled) return;
+    const name = button.dataset.toy;
+    const settings = toySettings[name];
+    const scene = document.querySelector(`[data-scene="${name}"]`);
+    const status = document.querySelector(`[data-status="${name}"]`);
+    const object = scene.querySelector('.object');
+    button.disabled = true;
+    scene.classList.add('active');
+    status.textContent = settings.message;
+    if (settings.surprise) {
+      await wait(650);
+      object.textContent = settings.surprise;
+      await wait(1150);
+    } else {
+      await wait(1800);
+    }
+    scene.classList.remove('active');
+    object.textContent = settings.emoji;
+    button.disabled = false;
+    status.textContent = 'En gång till?';
+  });
+});
 lever.addEventListener('pointermove', (event) => {
   if (!dragging) return;
   dragDistance = Math.max(0, Math.min(62, event.clientY - startY));

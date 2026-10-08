@@ -1,6 +1,15 @@
 # Tryck & studs!
 
-En första hemsida att lära sig med: dra ned brödrostens spak så hoppar brödet upp, eller starta raketen och se den räkna ned från tre.
+En hemsida att lära sig med, med tio färgglada leksaker: brödrost, raket, ballong, blomma, ägg, present, trumma, glass, stjärna och groda. Alla går att använda igen. Trumman visar en animerad trumvirvel utan ljud.
+
+## Uppdatera ditt befintliga GitHub-projekt
+
+1. Öppna GitHub Desktop och välj projektet `Test-br-drost`.
+2. Klicka på **Repository → Show in Explorer**.
+3. Kopiera de fyra nya filerna till projektmappen. Välj att ersätta de gamla filerna.
+4. Dubbelklicka på `index.html` för att prova uppdateringen lokalt.
+5. I GitHub Desktop skriver du `Åtta nya leksaker och justerad brödskiva` under **Summary** och klickar på **Commit to main**.
+6. Klicka på **Push origin**. GitHub Pages uppdaterar den befintliga hemsidan efter en stund. Uppdatera webbläsaren för att se den nya versionen.
 
 ## Öppna hemsidan
 
