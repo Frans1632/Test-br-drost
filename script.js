@@ -176,10 +176,12 @@ const dustLayer = document.querySelector('#stardust');
 const launchEffects = document.querySelector('#launch-effects');
 const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
 function useGentleMotion() { return reducedMotion.matches; }
+function isSmallScreen() { return window.innerWidth < 600; }
 function setToyBusy(button, busy) {
   const card = button.closest('.toy');
   card.classList.toggle('playing', busy);
   card.setAttribute('aria-busy', String(busy));
+  scheduleEffectMask();
 }
 for (let i = 0; i < 60; i++) {
   const star = document.createElement('span');
@@ -203,12 +205,20 @@ let dustTimer;
 let fireTimer;
 document.addEventListener('click', event => {
   if (event?.target?.closest('.play-controls')) return;
+  scheduleEffectMask();
+  // På mobilen räcker kortets egen effekt. Extra stjärnstoft kommer vid
+  // tryck utanför korten, så två stora effekter inte staplas på varandra.
+  if (isSmallScreen() && event?.target?.closest('.toy')) {
+    clearTimeout(dustTimer);
+    dustLayer.classList.remove('shimmering');
+    return;
+  }
   if (event?.target && !event.target.closest('.toy')) playToySound('stardust');
   clearTimeout(dustTimer);
   dustLayer.classList.remove('shimmering');
   void dustLayer.offsetWidth; // Starta om animationen vid nästa klick.
   dustLayer.classList.add('shimmering');
-  dustTimer = setTimeout(() => dustLayer.classList.remove('shimmering'), useGentleMotion() ? 700 : 2400);
+  dustTimer = setTimeout(() => dustLayer.classList.remove('shimmering'), useGentleMotion() ? 700 : isSmallScreen() ? 1800 : 2400);
 });
 function showLaunchEffects() {
   clearTimeout(fireTimer);
@@ -235,6 +245,49 @@ document.querySelectorAll('.toy').forEach(card => {
 const themeBackground = document.querySelector('#theme-background');
 const butterScreen = document.querySelector('#butter-screen');
 const screenActors = document.querySelector('#screen-actors');
+
+// Bakgrundseffekterna ligger framför korten, men har genomskinliga hål
+// runt figurerna och texten. Hålen följer med när man skrollar eller vänder mobilen.
+const effectScenes = [...document.querySelectorAll('.scene')];
+const effectText = [...document.querySelectorAll('h1, header > p, .toy-heading, .status, .play-controls, #launch')];
+let effectMaskFrame = 0;
+let lastEffectMask = '';
+function effectMaskMarkup() {
+  const width = window.innerWidth;
+  const height = window.innerHeight;
+  const holes = [];
+  for (const scene of effectScenes) {
+    const rect = scene.getBoundingClientRect();
+    const x = rect.left + rect.width / 2;
+    const y = rect.top + rect.height / 2;
+    const radius = 119; // Cirkelns radie är 107 px, plus en fri kant.
+    if (y + radius < 0 || y - radius > height) continue;
+    holes.push(`<circle cx="${x}" cy="${y}" r="${radius}" fill="black"/>`);
+  }
+  for (const text of effectText) {
+    const rect = text.getBoundingClientRect();
+    if (!rect.width || !rect.height || rect.top + rect.height < 0 || rect.top > height) continue;
+    holes.push(`<rect x="${rect.left - 8}" y="${rect.top - 8}" width="${rect.width + 16}" height="${rect.height + 16}" rx="12" fill="black"/>`);
+  }
+  return `<svg xmlns="http://www.w3.org/2000/svg" width="${width}" height="${height}" viewBox="0 0 ${width} ${height}"><defs><mask id="clear-centres" maskUnits="userSpaceOnUse" maskContentUnits="userSpaceOnUse" x="0" y="0" width="${width}" height="${height}" style="mask-type:luminance"><rect width="${width}" height="${height}" fill="white"/>${holes.join('')}</mask></defs><rect width="${width}" height="${height}" fill="white" mask="url(#clear-centres)"/></svg>`;
+}
+function updateEffectMask() {
+  effectMaskFrame = 0;
+  const markup = effectMaskMarkup();
+  if (markup === lastEffectMask) return;
+  lastEffectMask = markup;
+  document.body.style.setProperty('--effect-mask-width', `${window.innerWidth}px`);
+  document.body.style.setProperty('--effect-mask-height', `${window.innerHeight}px`);
+  document.body.style.setProperty('--effect-mask', `url("data:image/svg+xml,${encodeURIComponent(markup)}")`);
+}
+function scheduleEffectMask() {
+  if (effectMaskFrame) return;
+  effectMaskFrame = window.requestAnimationFrame(updateEffectMask);
+}
+window.addEventListener('scroll', scheduleEffectMask, { passive: true });
+window.addEventListener('resize', scheduleEffectMask);
+updateEffectMask();
+
 const backgroundThemes = {
   toast: ['🧈'], rocket: ['🪐','⭐','☄️'], balloon: ['🎈'],
   flower: ['🌼','🌸','🌷','💧','wateringcan'], egg: ['🐣','🐥','🥚'], gift: ['🎁','🧸','🎊'],
@@ -247,6 +300,7 @@ const backgroundThemes = {
 let backgroundTimer;
 
 function fillBackground(name, source) {
+  scheduleEffectMask();
   clearTimeout(backgroundTimer);
   themeBackground.replaceChildren();
   themeBackground.className = `theme-background theme-${name}`;
@@ -255,24 +309,30 @@ function fillBackground(name, source) {
   const originX = rect.left + rect.width / 2;
   const originY = rect.top + rect.height / 2;
   const palette = ['#ff3e8b','#ffc400','#17bfc5','#8947ef','#ff7045'];
-  const particleCount = useGentleMotion() ? 12 : 24;
+  const mobile = isSmallScreen();
+  const particleCount = mobile ? (useGentleMotion() ? 6 : 8) : (useGentleMotion() ? 12 : 24);
   for (let i = 0; i < particleCount; i++) {
     const particle = document.createElement('span');
     const symbols = backgroundThemes[name];
     const symbol = symbols[i % symbols.length];
-    const targetX = (i % 8 + .2 + Math.random() * .6) / 8 * window.innerWidth;
-    const targetY = (Math.floor(i / 8) + .2 + Math.random() * .6) / Math.ceil(particleCount / 8) * window.innerHeight;
-    const duration = name === 'robot' ? 4200 : 4600;
+    const size = mobile ? 24 + Math.random() * 12 : 48 + Math.random() * 28;
+    const targetX = mobile
+      ? (i % 2 ? window.innerWidth - size * 1.55 - 10 : 10)
+      : (i % 8 + .2 + Math.random() * .6) / 8 * window.innerWidth;
+    const targetY = mobile
+      ? (Math.floor(i / 2) + .25 + Math.random() * .5) / Math.ceil(particleCount / 2) * window.innerHeight
+      : (Math.floor(i / 8) + .2 + Math.random() * .6) / Math.ceil(particleCount / 8) * window.innerHeight;
+    const duration = mobile ? 2800 : name === 'robot' ? 4200 : 4600;
     particle.className = symbol === 'sprinkle' ? 'theme-particle sprinkle-particle' : 'theme-particle';
     if (illustratedSymbols[symbol]) particle.innerHTML = toyArtwork(illustratedSymbols[symbol]);
     else particle.textContent = symbol === 'sprinkle' ? '' : symbol;
-    particle.style.cssText = `left:${targetX}px;top:${targetY}px;--from-x:${originX-targetX}px;--from-y:${originY-targetY}px;--drift-x:${(Math.random()-.5)*150}px;--drift-y:${(Math.random()-.5)*150}px;--delay:${i*.008}s;--duration:${duration}ms;--particle-size:${48+Math.random()*28}px;--particle-color:${palette[i%palette.length]};--tilt:${(i%2?1:-1)*(15+i%4*10)}deg`;
+    particle.style.cssText = `left:${targetX}px;top:${targetY}px;--from-x:${originX-targetX}px;--from-y:${originY-targetY}px;--drift-x:${(Math.random()-.5)*150}px;--drift-y:${(Math.random()-.5)*150}px;--delay:${i*.008}s;--duration:${duration}ms;--particle-size:${size}px;--particle-color:${palette[i%palette.length]};--tilt:${(i%2?1:-1)*(15+i%4*10)}deg`;
     themeBackground.append(particle);
   }
   backgroundTimer = setTimeout(() => {
     themeBackground.replaceChildren();
     butterScreen.classList.remove('spread');
-  }, useGentleMotion() ? 1400 : 5200);
+  }, useGentleMotion() ? 1400 : mobile ? 3200 : 5200);
 }
 
 // Figuren får en kopia i ett lager utanför korten. CSS flyttar den

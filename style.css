@@ -300,3 +300,37 @@ footer { font-size: 1rem; font-weight: 800; margin-top: 30px; }
 .sprinkle-particle { width: 10px; height: 27px; border: 2px solid #302252; }
 [data-scene].active:not([data-scene="drum"]) .object { animation-duration: var(--scene-duration,2200ms); }
 @media (prefers-reduced-motion: reduce) { .active .story-prop { animation: none !important; opacity: .8; } .active .story-water-one, .active .story-water-two { transform: translateY(40px); } }
+
+/* Ett gemensamt hål i alla dekorationslager håller cirklar och text fria.
+   Masken på eld och rök används innanför avgasskiktets mjuka toning. */
+.theme-background, .stardust, .butter-screen, .fire-bed, .smoke-bed {
+  -webkit-mask-image: var(--effect-mask, none);
+  mask-image: var(--effect-mask, none);
+  -webkit-mask-size: var(--effect-mask-width) var(--effect-mask-height);
+  mask-size: var(--effect-mask-width) var(--effect-mask-height);
+  -webkit-mask-position: left bottom;
+  mask-position: left bottom;
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+}
+@media (max-width: 599px) {
+  .theme-background { opacity: .8; }
+  .theme-background .theme-particle { animation-name: mobile-edge-drift; }
+  .stardust { opacity: .6; }
+  .stardust span { width: calc(var(--size) * .6); height: calc(var(--size) * .6); }
+  .stardust span:nth-child(n+19) { display: none; }
+  .stardust.shimmering span { animation-duration: 1.2s; }
+  .butter-screen.spread { opacity: .55; }
+  .launch-effects { height: 210px; }
+  .launch-effects.burning { opacity: .75; }
+  .fire-bed span { width: 52px; height: 88px; }
+  .smoke-bed span { width: 76px; height: 76px; }
+  .fire-bed span:not(:nth-child(3n+1)), .smoke-bed span:not(:nth-child(3n+1)) { display: none; }
+  .sprinkle-particle { width: 6px; height: 16px; }
+  .actor-trail { opacity: .5; }
+}
+@keyframes mobile-edge-drift {
+  0% { opacity: 0; transform: translateY(12px) scale(.75); }
+  20%,70% { opacity: .7; transform: translateY(-8px) rotate(var(--tilt)) scale(1); }
+  100% { opacity: 0; transform: translateY(-45px) scale(.85); }
+}

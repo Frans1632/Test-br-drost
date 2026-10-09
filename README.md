@@ -8,6 +8,8 @@ Figurerna är egna teckningar med samma färgstarka stil och glada ansikten som 
 
 Även de små effektfigurerna är nu större, egna teckningar. Blomman vattnas av en glad vattenkanna och växer, en strösselburk skakar strössel över glassen, dinosaurien stampar upp dammoln och roboten dansar under en discokula. Enhörningen flyger med ett regnbågsspår, fotbollen sparkas in i ett mål och regnbågen kommer fram efter regn och solsken. Alla animationer använder samma stil, även stjärnstoftet, raketens eld och rök och figurerna som sprids över skärmen.
 
+Cirkeln kring varje huvudfigur och texten är fria från bakgrundseffekter. Skyddet följer med när du skrollar. På telefonen visas färre och mindre effekter längs skärmens kanter, och de försvinner snabbare. Kortets egen animation är kvar. Extra stjärnstoft visas på mobilen när du trycker utanför korten.
+
 Ljuden har lägre volym och mjukare klang. Inställningen för minskad rörelse på datorn eller mobilen respekteras också.
 
 På stor skärm visas tre kort i bredd, på surfplatta två och på mindre mobilskärmar ett. Inga konton eller köp behövs och sidan fungerar utan internet.
