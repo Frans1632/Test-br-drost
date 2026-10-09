@@ -6,6 +6,8 @@ Figurerna är större och alla kort går att trycka på. Namnen är korta och si
 
 Figurerna är egna teckningar med samma färgstarka stil och glada ansikten som brödrosten. Samma teckningar används även när bilen och enhörningen lämnar kortet, när många figurer sprids över skärmen och när ägget och presenten öppnas. Teckningarna finns inbyggda i `index.html`, så du behöver inga extra bildfiler.
 
+Även de små effektfigurerna är nu större, egna teckningar. Blomman vattnas av en glad vattenkanna och växer, en strösselburk skakar strössel över glassen, dinosaurien stampar upp dammoln och roboten dansar under en discokula. Enhörningen flyger med ett regnbågsspår, fotbollen sparkas in i ett mål och regnbågen kommer fram efter regn och solsken. Alla animationer använder samma stil, även stjärnstoftet, raketens eld och rök och figurerna som sprids över skärmen.
+
 Ljuden har lägre volym och mjukare klang. Inställningen för minskad rörelse på datorn eller mobilen respekteras också.
 
 På stor skärm visas tre kort i bredd, på surfplatta två och på mindre mobilskärmar ett. Inga konton eller köp behövs och sidan fungerar utan internet.
@@ -24,7 +26,7 @@ Alla går att använda igen, även med tangentbordets Tab och Enter eller mellan
 2. Klicka på **Repository → Show in Explorer**.
 3. Kopiera de fyra nya filerna till projektmappen. Välj att ersätta de gamla filerna.
 4. Dubbelklicka på `index.html` för att prova uppdateringen lokalt.
-5. I GitHub Desktop skriver du `Större figurer och enklare lek för småbarn` under **Summary** och klickar på **Commit to main**.
+5. I GitHub Desktop skriver du `Större ritade effekter och roligare animationer` under **Summary** och klickar på **Commit to main**.
 6. Klicka på **Push origin**. GitHub Pages uppdaterar den befintliga hemsidan efter en stund. Uppdatera webbläsaren för att se den nya versionen.
 
 ## Öppna hemsidan

@@ -64,11 +64,11 @@ lever.addEventListener('pointerdown', (event) => {
 // Figurerna delar samma klickfunktion, men har egna rörelser och bakgrunder.
 const toySettings = {
   balloon: { message: 'Hejdå! Hej igen!', emoji: '🎈' },
-  flower: { message: 'Plask! Väx!', emoji: '🌷' },
+  flower: { message: 'Vattenkannan vattnar — blomman växer!', emoji: '🌷', duration: 2800 },
   egg: { message: 'Pip pip!', emoji: '🥚', surprise: '🐣' },
   gift: { message: 'Tittut!', emoji: '🎁', surprise: '🧸' },
   drum: { message: 'Bum bum!', emoji: '🥁' },
-  icecream: { message: 'Strössel! Mums!', emoji: '🍦' },
+  icecream: { message: 'Skaka burken! Strössel på glassen!', emoji: '🍦', duration: 2800 },
   wishing: { message: 'Snurr!', emoji: '⭐' },
   frog: { message: 'Kvack! Plask!', emoji: '🐸', duration: 3200 },
   robot: { message: 'Beep boop! Dansa!', emoji: '🤖', duration: 3600 },
@@ -76,11 +76,11 @@ const toySettings = {
   butterfly: { message: 'Fladder!', emoji: '🦋' },
   car: { message: 'Tut tut! Brum!', emoji: '🚗', duration: 4400, roam: true },
   bee: { message: 'Bzzzz!', emoji: '🐝' },
-  dinosaur: { message: 'Duns! Raaawr!', emoji: '🦖' },
+  dinosaur: { message: 'Duns! Dinosaurien stampar upp ett dammoln!', emoji: '🦖', duration: 2800 },
   unicorn: { message: 'Flyg! Magi!', emoji: '🦄', duration: 4400, roam: true },
   snowman: { message: 'Snurr! Snö!', emoji: '⛄' },
-  football: { message: 'Boing boing!', emoji: '⚽' },
-  rainbow: { message: 'Alla färger!', emoji: '🌈' }
+  football: { message: 'Sparka! Mål!', emoji: '⚽' },
+  rainbow: { message: 'Först lite regn, sedan sol och regnbåge!', emoji: '🌈', duration: 2800 }
 };
 
 document.querySelectorAll('[data-toy]').forEach(button => {
@@ -92,6 +92,7 @@ document.querySelectorAll('[data-toy]').forEach(button => {
     const status = document.querySelector(`[data-status="${name}"]`);
     const idleText = status.textContent;
     const object = scene.querySelector('.object');
+    scene.style.setProperty('--scene-duration', `${settings.duration || 2200}ms`);
     button.disabled = true;
     setToyBusy(button, true);
     playToySound(name);
@@ -102,9 +103,9 @@ document.querySelectorAll('[data-toy]').forEach(button => {
     if (settings.surprise) {
       await wait(650);
       object.innerHTML = toyArtwork(name === 'egg' ? 'chick' : 'teddy');
-      await wait(1150);
+      await wait(1550);
     } else {
-      await wait(settings.duration || 1800);
+      await wait(settings.duration || 2200);
     }
     scene.classList.remove('active');
     object.innerHTML = toyArtwork(name);
@@ -182,18 +183,19 @@ function setToyBusy(button, busy) {
 }
 for (let i = 0; i < 60; i++) {
   const star = document.createElement('span');
-  star.textContent = i % 3 === 0 ? '✧' : '✦';
-  star.style.cssText = `left:${Math.random()*100}%;top:${Math.random()*100}%;--delay:${Math.random()*.5}s;--size:${12+Math.random()*25}px;--color:${['#f5aa00','#a54df1','#f14395','#06a9be'][i%4]}`;
+  star.innerHTML = toyArtwork('sparkle');
+  star.style.cssText = `left:${Math.random()*100}%;top:${Math.random()*100}%;--delay:${Math.random()*.5}s;--size:${22+Math.random()*28}px;--color:${['#f5aa00','#a54df1','#f14395','#06a9be'][i%4]}`;
   dustLayer.append(star);
 }
 const smokeBed = launchEffects.querySelector('.smoke-bed');
 const fireBed = launchEffects.querySelector('.fire-bed');
 for (let i = 0; i < 24; i++) {
   const smoke = document.createElement('span');
+  smoke.innerHTML = toyArtwork('dust');
   smoke.style.cssText = `left:${i*100/23}%;--delay:${(i%5)*.12}s;--drift:${(i%2 ? 1 : -1)*(20+i%4*15)}px`;
   smokeBed.append(smoke);
   const flame = document.createElement('span');
-  flame.textContent = '🔥';
+  flame.innerHTML = toyArtwork('flame');
   flame.style.cssText = `left:${i*100/23}%;--delay:${(i%4)*.1}s`;
   fireBed.append(flame);
 }
@@ -235,11 +237,11 @@ const butterScreen = document.querySelector('#butter-screen');
 const screenActors = document.querySelector('#screen-actors');
 const backgroundThemes = {
   toast: ['🧈'], rocket: ['🪐','⭐','☄️'], balloon: ['🎈'],
-  flower: ['🌼','🌸','🌷','💧'], egg: ['🐣','🐥','🥚'], gift: ['🎁','🧸','🎊'],
+  flower: ['🌼','🌸','🌷','💧','wateringcan'], egg: ['🐣','🐥','🥚'], gift: ['🎁','🧸','🎊'],
   drum: ['♫','♪','🥁'], icecream: ['sprinkle'], wishing: ['⭐','✨','🌟'],
-  frog: ['🐸','🐸','💦'], robot: ['🤖','🤖','♫','♪'], duck: ['🦆','💦'],
+  frog: ['🐸','🐸','💦','fly'], robot: ['🤖','🤖','♫','♪','discoball'], duck: ['🦆','💦'],
   butterfly: ['🦋','🌸'], car: ['💨','🏁','🚦'], bee: ['🐝','🌼'],
-  dinosaur: ['🦖','🦕','🌿'], unicorn: ['🌈','✨','🦄'],
+  dinosaur: ['🦖','🦕','🌿','💥','dust'], unicorn: ['🌈','✨','🦄'],
   snowman: ['❄','⛄','❄'], football: ['⚽','💫'], rainbow: ['🌈','💧','☀️']
 };
 let backgroundTimer;
@@ -253,7 +255,7 @@ function fillBackground(name, source) {
   const originX = rect.left + rect.width / 2;
   const originY = rect.top + rect.height / 2;
   const palette = ['#ff3e8b','#ffc400','#17bfc5','#8947ef','#ff7045'];
-  const particleCount = useGentleMotion() ? 12 : 32;
+  const particleCount = useGentleMotion() ? 12 : 24;
   for (let i = 0; i < particleCount; i++) {
     const particle = document.createElement('span');
     const symbols = backgroundThemes[name];
@@ -264,7 +266,7 @@ function fillBackground(name, source) {
     particle.className = symbol === 'sprinkle' ? 'theme-particle sprinkle-particle' : 'theme-particle';
     if (illustratedSymbols[symbol]) particle.innerHTML = toyArtwork(illustratedSymbols[symbol]);
     else particle.textContent = symbol === 'sprinkle' ? '' : symbol;
-    particle.style.cssText = `left:${targetX}px;top:${targetY}px;--from-x:${originX-targetX}px;--from-y:${originY-targetY}px;--drift-x:${(Math.random()-.5)*150}px;--drift-y:${(Math.random()-.5)*150}px;--delay:${i*.008}s;--duration:${duration}ms;--particle-size:${24+Math.random()*30}px;--particle-color:${palette[i%palette.length]};--tilt:${(i%2?1:-1)*(15+i%4*10)}deg`;
+    particle.style.cssText = `left:${targetX}px;top:${targetY}px;--from-x:${originX-targetX}px;--from-y:${originY-targetY}px;--drift-x:${(Math.random()-.5)*150}px;--drift-y:${(Math.random()-.5)*150}px;--delay:${i*.008}s;--duration:${duration}ms;--particle-size:${48+Math.random()*28}px;--particle-color:${palette[i%palette.length]};--tilt:${(i%2?1:-1)*(15+i%4*10)}deg`;
     themeBackground.append(particle);
   }
   backgroundTimer = setTimeout(() => {
@@ -277,14 +279,14 @@ function fillBackground(name, source) {
 // mellan punkter på skärmen och tillbaka till dess startposition.
 function roamScreen(name, button, scene, duration) {
   const rect = button.getBoundingClientRect();
-  const size = Math.min(100, window.innerWidth * .22);
+  const size = Math.min(156, window.innerWidth * .3);
   const startX = rect.left + rect.width / 2 - size / 2;
   const startY = rect.top + rect.height / 2 - size / 2;
   const right = Math.max(12, window.innerWidth - size - 16);
   const bottom = Math.max(12, window.innerHeight - size - 16);
   const actor = document.createElement('span');
   actor.className = `screen-actor roaming-${name}`;
-  actor.innerHTML = toyArtwork(name);
+  actor.innerHTML = `<span class="actor-trail">${toyArtwork(name === 'unicorn' ? 'rainbow' : 'dust')}</span>` + toyArtwork(name);
   actor.style.cssText = `left:${startX}px;top:${startY}px;--actor-size:${size}px;--duration:${duration}ms;--left-x:${16-startX}px;--right-x:${right-startX}px;--top-y:${16-startY}px;--bottom-y:${bottom-startY}px;--middle-y:${window.innerHeight*.45-startY}px`;
   screenActors.append(actor);
   scene.classList.add('roaming');
@@ -303,7 +305,12 @@ const illustratedSymbols = {
   '🥚':'egg', '🐣':'chick', '🐥':'chick', '🎁':'gift', '🧸':'teddy', '🥁':'drum',
   '🍦':'icecream', '⭐':'wishing', '🌟':'wishing', '🐸':'frog', '🤖':'robot',
   '🦆':'duck', '🦋':'butterfly', '🚗':'car', '🐝':'bee', '🦖':'dinosaur', '🦕':'dinosaur',
-  '🦄':'unicorn', '⛄':'snowman', '⚽':'football', '🌈':'rainbow'
+  '🦄':'unicorn', '⛄':'snowman', '⚽':'football', '🌈':'rainbow',
+  '🪐':'planet', '☄️':'comet', '💧':'droplets', '💦':'splash', '🎊':'confetti',
+  '♫':'music', '♪':'music', '✨':'sparkle', '❄':'snowflake', '💨':'wind',
+  '🏁':'flag', '🚦':'traffic', '🌿':'leaf', '💫':'comet', '🌧':'raincloud',
+  '☀️':'sun', '💥':'impact', wateringcan:'wateringcan', fly:'fly',
+  discoball:'discoball', dust:'dust'
 };
 
 // Ljuden skapas direkt i webbläsaren. Inga ljudfiler behöver laddas ned.

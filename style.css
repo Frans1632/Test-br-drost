@@ -141,7 +141,8 @@ footer { text-align: center; font-size: .9rem; margin-top: 35px; } footer span {
 .stardust span { position: absolute; font-size: var(--size); color: var(--color); opacity: 0; }
 .stardust.shimmering span { animation: dust-twinkle 1.8s ease-in-out both; animation-delay: var(--delay); }
 @keyframes dust-twinkle { 0%,100% { opacity: 0; transform: translateY(16px) scale(.3) rotate(0); } 25%,60% { opacity: .9; transform: translateY(-12px) scale(1) rotate(35deg); } }
-.launch-effects { position: fixed; left: 0; right: 0; bottom: 0; height: 170px; z-index: 5; pointer-events: none; overflow: hidden; opacity: 0; transition: opacity .35s; }
+/* Extra utrymme och en mjuk toning låter röken stiga utan en avskuren kant. */
+.launch-effects { position: fixed; left: 0; right: 0; bottom: 0; height: clamp(240px,40vh,320px); z-index: 5; pointer-events: none; overflow: hidden; opacity: 0; transition: opacity .35s; -webkit-mask-image: linear-gradient(to bottom,transparent,#000 90px); mask-image: linear-gradient(to bottom,transparent,#000 90px); }
 .launch-effects.burning { opacity: 1; }
 .fire-bed, .smoke-bed { position: absolute; inset: 0; }
 .fire-bed span { position: absolute; bottom: -18px; font-size: clamp(55px, 7vw, 100px); transform: translateX(-50%); }
@@ -189,7 +190,6 @@ h2 { font-size: 1.45rem; line-height: 1.3; text-align: center; }
 .effect { top: 26px; }
 [data-scene="icecream"] .effect { top: 12px; }
 .frog-pond { bottom: 30px; }
-.launch-effects { height: 130px; }
 .fire-bed span { font-size: clamp(48px,6vw,78px); }
 .butter-screen { background: linear-gradient(130deg,#ffd73555,#ffed9955 40%,#ffc50055); }
 button:focus-visible { outline: 4px solid #6c3db0; outline-offset: 5px; }
@@ -223,3 +223,80 @@ footer { font-size: 1rem; font-weight: 800; margin-top: 30px; }
 [data-scene="icecream"] .effect.sprinkles { top: 4px; width: 92px; left: calc(50% - 46px); }
 .sprinkles i:nth-child(6n+1) { left: 5px; }.sprinkles i:nth-child(6n+2) { left: 20px; }.sprinkles i:nth-child(6n+3) { left: 35px; }.sprinkles i:nth-child(6n+4) { left: 50px; }.sprinkles i:nth-child(6n+5) { left: 65px; }.sprinkles i:nth-child(6n) { left: 80px; }
 .figure-button:hover:not(:disabled) .toy-art { filter: drop-shadow(0 6px 0 #30225220); }
+
+/* Stora medhjälpare gör varje animation till en liten berättelse. */
+.story-prop { position: absolute; width: 86px; height: 86px; right: 0; top: 12px; opacity: 0; z-index: 3; pointer-events: none; }
+.story-two { left: 0; right: auto; top: auto; bottom: 20px; width: 74px; height: 74px; }
+.story-back { left: 3px; right: auto; top: auto; bottom: 4px; width: 112px; height: 112px; z-index: 0; }
+.active .story-prop { animation: story-arrival var(--scene-duration,2200ms) ease-in-out both; }
+.active .story-two { animation-name: story-swirl; }
+.active .story-back { animation-name: story-backdrop; }
+@keyframes story-arrival { 0% { opacity: 0; transform: translate(35px,-20px) scale(.6) rotate(-12deg); } 20% { opacity: 1; transform: translate(0,0) scale(1) rotate(0); } 50% { opacity: 1; transform: translate(-8px,12px) rotate(12deg); } 80% { opacity: 1; transform: translate(0,0) rotate(-8deg); } 100% { opacity: 0; transform: translate(25px,-25px) scale(.75); } }
+@keyframes story-swirl { 0%,8% { opacity: 0; transform: translate(0,20px) scale(.5); } 28% { opacity: 1; transform: translate(10px,-30px) rotate(-15deg); } 62% { opacity: 1; transform: translate(-10px,-70px) rotate(20deg); } 85% { opacity: 1; } 100% { opacity: 0; transform: translate(15px,-100px) rotate(-10deg); } }
+@keyframes story-backdrop { 0% { opacity: 0; transform: scale(.5); } 25%,75% { opacity: 1; transform: scale(1); } 100% { opacity: 0; transform: scale(.8); } }
+.story-watering { width: 124px; height: 124px; right: -8px; top: -10px; }
+.story-watering .toy-art { transform: scaleX(-1); }
+.active .story-watering { animation-name: watering-can; }
+@keyframes watering-can { 0% { opacity: 0; transform: translate(80px,-20px); } 18% { opacity: 1; transform: translate(0,0); } 32%,64% { opacity: 1; transform: rotate(-24deg); } 80% { opacity: 1; transform: rotate(0); } 100% { opacity: 0; transform: translate(65px,-30px); } }
+.story-water-one, .story-water-two { top: 36px; right: auto; left: calc(50% + 8px); width: 62px; height: 62px; }
+.story-water-two { left: calc(50% - 15px); top: 46px; }
+.active .story-water-one { animation-name: watering-drops; }
+.active .story-water-two { animation-name: watering-drops-late; }
+@keyframes watering-drops { 0%,20% { opacity: 0; transform: translateY(-18px) scale(.6); } 30% { opacity: 1; } 52% { opacity: 0; transform: translateY(60px); } 56% { opacity: 0; transform: translateY(-18px) scale(.6); } 66% { opacity: 1; } 82%,100% { opacity: 0; transform: translateY(60px); } }
+@keyframes watering-drops-late { 0%,30% { opacity: 0; transform: translateY(-18px) scale(.6); } 40% { opacity: 1; } 65%,100% { opacity: 0; transform: translateY(68px); } }
+[data-scene="flower"].active .object { animation: watered-flower var(--scene-duration) ease-in-out both; }
+@keyframes watered-flower { 0%,24%,100% { transform: scale(1); } 60% { transform: translateY(-8px) scale(1.18) rotate(-6deg); } 80% { transform: scale(1.1) rotate(5deg); } }
+.story-shaker { right: -2px; top: 0; width: 106px; height: 106px; }
+.active .story-shaker { animation-name: sprinkle-shaker; }
+@keyframes sprinkle-shaker { 0% { opacity: 0; transform: translateX(60px) rotate(0); } 20% { opacity: 1; transform: rotate(-100deg); } 35%,55% { opacity: 1; transform: rotate(-120deg) translateY(-6px); } 45%,65% { opacity: 1; transform: rotate(-100deg) translateY(6px); } 85% { opacity: 1; transform: rotate(0); } 100% { opacity: 0; transform: translateX(60px); } }
+.active .sprinkles i { animation-delay: calc(.45s + var(--i) * .018s); width: 6px; height: 14px; }
+.frog-fly { width: 64px; height: 64px; right: 13%; top: 0; }
+.frog-splash { width: 114px; height: 114px; left: calc(50% - 57px); }
+[data-scene="frog"].active .frog-splash { bottom: 14px; }
+@keyframes pond-splash { 0%,65%,100% { opacity: 0; transform: scale(.5); } 78%,86% { opacity: 1; transform: scale(1.3) translateY(-10px); } }
+.story-disco { top: -18px; right: calc(50% - 50px); width: 100px; height: 100px; }
+.active .story-disco { animation-name: disco-party; }
+@keyframes disco-party { 0% { opacity: 0; transform: translateY(-75px); } 18% { opacity: 1; transform: translateY(0) rotate(-10deg); } 35%,65% { opacity: 1; transform: rotate(15deg); } 50%,80% { opacity: 1; transform: rotate(-15deg); } 100% { opacity: 0; transform: translateY(-75px); } }
+[data-scene="robot"] .story-one { top: 88px; right: -8px; }
+.story-splash { width: 116px; height: 116px; top: auto; bottom: 8px; right: -8px; }
+.story-stomp { width: 130px; height: 130px; top: auto; bottom: -5px; right: calc(50% - 65px); z-index: 0; }
+.story-dust { width: 112px; height: 112px; right: auto; left: 0; top: auto; bottom: 0; }
+.active .story-stomp { animation-name: stomping-impact; }
+.active .story-dust { animation-name: dust-cloud; }
+@keyframes stomping-impact { 0%,20% { opacity: 0; transform: scale(.4); } 35% { opacity: 1; transform: scale(1.05); } 48% { opacity: 0; transform: scale(1.2); } 70% { opacity: 1; transform: scale(1.05); } 88%,100% { opacity: 0; transform: scale(1.3); } }
+@keyframes dust-cloud { 0%,18% { opacity: 0; transform: scale(.5) translateY(0); } 40% { opacity: .9; transform: scale(1) translate(-12px,-10px); } 75% { opacity: .7; transform: scale(1.2) translate(-22px,-30px); } 100% { opacity: 0; transform: scale(1.3) translate(-30px,-45px); } }
+[data-scene="dinosaur"].active .object { animation: dino-stomp var(--scene-duration) ease-in-out both; }
+.story-magic { width: 160px; height: 130px; left: calc(50% - 80px); right: auto; top: 42px; z-index: 0; }
+.active .story-magic { animation-name: magic-rainbow; }
+@keyframes magic-rainbow { 0% { opacity: 0; transform: scale(.3); } 25%,70% { opacity: 1; transform: scale(1.1); } 100% { opacity: 0; transform: scale(1.25) translateY(-35px); } }
+.story-goal { width: 178px; height: 154px; left: calc(50% - 89px); right: auto; top: auto; bottom: 2px; z-index: 0; }
+.story-kick { top: auto; bottom: 22px; right: -2px; width: 94px; height: 94px; }
+.active .story-kick { animation-name: kick-shoe; }
+.story-kick .toy-art { transform: scaleX(-1); }
+@keyframes kick-shoe { 0% { opacity: 0; transform: translateX(50px) rotate(20deg); } 20% { opacity: 1; transform: translateX(-20px) rotate(-30deg); } 40% { opacity: 1; transform: translateX(15px) rotate(10deg); } 65%,100% { opacity: 0; transform: translateX(50px); } }
+[data-scene="football"].active .object { animation: kick-to-goal var(--scene-duration) ease-in-out both; }
+@keyframes kick-to-goal { 0%,18%,100% { transform: translate(0,0) scale(1) rotate(0); } 35% { transform: translate(-30px,-35px) scale(.8) rotate(-70deg); } 60%,75% { transform: translate(0,40px) scale(.42) rotate(-180deg); } 90% { transform: translate(0,-15px) scale(.75) rotate(-270deg); } }
+.story-rain { top: -10px; right: -8px; width: 125px; height: 125px; }
+.story-sunshine { left: -6px; right: auto; top: -12px; width: 106px; height: 106px; }
+.story-snowcloud { width: 120px; height: 120px; left: calc(50% - 60px); right: auto; top: -32px; }
+[data-scene="snowman"] .story-one { top: 24px; right: 0; width: 78px; height: 78px; }
+[data-scene="snowman"] .story-two { top: 28px; bottom: auto; left: 0; }
+[data-scene="snowman"].active .story-one, [data-scene="snowman"].active .story-two { animation-name: story-snowfall; }
+@keyframes story-snowfall { 0% { opacity: 0; transform: translateY(-25px) rotate(0); } 25% { opacity: 1; } 75% { opacity: 1; transform: translateY(90px) rotate(90deg); } 100% { opacity: 0; transform: translateY(125px) rotate(130deg); } }
+.active .story-rain { animation-name: rain-first; }
+.active .story-sunshine { animation-name: sun-after-rain; }
+@keyframes rain-first { 0% { opacity: 0; transform: translateX(45px); } 20%,45% { opacity: 1; transform: translateX(0); } 75%,100% { opacity: 0; transform: translateX(55px); } }
+@keyframes sun-after-rain { 0%,35% { opacity: 0; transform: scale(.3) rotate(-30deg); } 65%,85% { opacity: 1; transform: scale(1) rotate(0); } 100% { opacity: 0; transform: scale(.8) rotate(15deg); } }
+[data-scene="rainbow"].active .object { animation: rainbow-grow var(--scene-duration) ease-in-out both; }
+.actor-trail { position: absolute; width: 115%; height: 90%; left: -70%; top: 15%; opacity: .85; }
+.screen-actor > .toy-art { position: relative; z-index: 1; }
+.roaming-unicorn .actor-trail { width: 170%; height: 120%; left: -120%; top: 18%; }
+.star { width: 52px; height: 52px; }
+.star-two { width: 70px; height: 70px; }
+.star-three { width: 38px; height: 38px; }
+.stardust span { width: var(--size); height: var(--size); }
+.fire-bed span { width: clamp(64px,8vw,112px); height: 130px; bottom: -16px; font-size: initial; }
+.smoke-bed span { width: 110px; height: 110px; background: transparent; }
+.sprinkle-particle { width: 10px; height: 27px; border: 2px solid #302252; }
+[data-scene].active:not([data-scene="drum"]) .object { animation-duration: var(--scene-duration,2200ms); }
+@media (prefers-reduced-motion: reduce) { .active .story-prop { animation: none !important; opacity: .8; } .active .story-water-one, .active .story-water-two { transform: translateY(40px); } }
