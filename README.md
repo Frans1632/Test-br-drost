@@ -6,7 +6,7 @@ Tryck på en figur eller på dess kort. Varje leksak fyller bakgrunden med passa
 
 Brödrostens spak går fortfarande att dra. Glassen får strössel och grodan jagar en fluga, gör en volt och plaskar i sin damm. De tio senaste figurerna är robot, anka, fjäril, bil, bi, dinosaurie, enhörning, snögubbe, fotboll och regnbåge.
 
-Alla går att använda igen, även med tangentbordets Tab och Enter eller mellanslag. Trumman visar en animerad trumvirvel utan ljud. Sidan anpassar rörelserna om du har valt minskad rörelse i datorns eller mobilens inställningar.
+Alla går att använda igen, även med tangentbordets Tab och Enter eller mellanslag. Varje figur har ett eget lekfullt ljud: motorbrum, raketsus, trummor, kväkande grodor, robotdisco och annat. Ljuden skapas i webbläsaren och fungerar utan internet. Klicka på **Ljud på** högst upp för att tysta ljuden, och klicka igen för att slå på dem. Ljuden spelas först när du aktiverar en figur. Sidan anpassar rörelserna om du har valt minskad rörelse i datorns eller mobilens inställningar.
 
 ## Uppdatera ditt befintliga GitHub-projekt
 
