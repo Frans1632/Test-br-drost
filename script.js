@@ -174,8 +174,7 @@ rocketButton.addEventListener('click', launchRocket);
 const dustLayer = document.querySelector('#stardust');
 const launchEffects = document.querySelector('#launch-effects');
 const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
-let calmEnabled = false;
-function useGentleMotion() { return calmEnabled || reducedMotion.matches; }
+function useGentleMotion() { return reducedMotion.matches; }
 function setToyBusy(button, busy) {
   const card = button.closest('.toy');
   card.classList.toggle('playing', busy);
@@ -459,13 +458,4 @@ soundToggle.addEventListener('click', () => {
     const ctx = getAudioContext();
     if (ctx && masterVolume) masterVolume.gain.setValueAtTime(.14, ctx.currentTime);
   }
-});
-
-const calmToggle = document.querySelector('#calm-toggle');
-calmToggle.addEventListener('click', () => {
-  calmEnabled = !calmEnabled;
-  document.body.classList.toggle('calm-play', calmEnabled);
-  calmToggle.setAttribute('aria-pressed', String(calmEnabled));
-  calmToggle.setAttribute('aria-label', calmEnabled ? 'Stäng av lugnare lek' : 'Slå på lugnare lek');
-  calmToggle.textContent = calmEnabled ? '🌿 Lugn lek på' : '🌿 Lugnare';
 });

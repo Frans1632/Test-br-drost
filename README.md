@@ -4,7 +4,7 @@
 
 Figurerna är större och alla kort går att trycka på. Namnen är korta och sidan använder små utrop som ”Kvack!” och ”Tittut!” i stället för långa instruktioner. Korten markerar när en animation pågår och svarar visuellt när du trycker.
 
-Ljuden har lägre volym och mjukare klang. **Lugnare** högst upp ger färre bakgrundsfigurer och mindre rörelse. Tryck på samma knapp igen för att återgå till fullt bus. Inställningen för minskad rörelse på datorn eller mobilen respekteras också.
+Ljuden har lägre volym och mjukare klang. Inställningen för minskad rörelse på datorn eller mobilen respekteras också.
 
 På stor skärm visas tre kort i bredd, på surfplatta två och på mindre mobilskärmar ett. Inga konton eller köp behövs och sidan fungerar utan internet.
 
