@@ -1,5 +1,5 @@
 /* CSS bestämmer färger, former, placering och animationer. */
-:root { font-family: "Trebuchet MS", system-ui, sans-serif; color: #302252; background: #fff7e6; font-synthesis: none; }
+:root { font-family: "Trebuchet MS", system-ui, sans-serif; color: #302252; background: #eaf8ff; font-synthesis: none; }
 * { box-sizing: border-box; }
 body { margin: 0; isolation: isolate; background-image: radial-gradient(#e8d9b8 1.5px, transparent 1.5px); background-size: 24px 24px; }
 main { position: relative; z-index: 1; max-width: 1060px; margin: auto; padding: 48px 24px 24px; }
@@ -13,7 +13,7 @@ header p { font-size: 1.15rem; margin: 0; }
 .playground { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; }
 .toy { border: 3px solid #302252; border-radius: 30px; box-shadow: 7px 8px 0 #302252; padding: 24px; overflow: hidden; }
 .toy { cursor: pointer; }
-.theme-background { position: fixed; inset: 0; z-index: 0; overflow: hidden; pointer-events: none; }
+.theme-background { position: fixed; inset: 0; z-index: 2; overflow: hidden; pointer-events: none; }
 .theme-particle { position: absolute; font-size: var(--particle-size); color: var(--particle-color); opacity: 0; line-height: 1; animation: theme-scatter var(--duration) ease-in-out both; animation-delay: var(--delay); }
 @keyframes theme-scatter { 0% { opacity: 0; transform: translate(var(--from-x),var(--from-y)) scale(.2); } 12% { opacity: .9; } 36% { opacity: .95; transform: translate(0,0) rotate(var(--tilt)) scale(1); } 78% { opacity: .9; transform: translate(var(--drift-x),var(--drift-y)) rotate(calc(var(--tilt) * -1)) scale(1.15); } 100% { opacity: 0; transform: translate(var(--drift-x),calc(var(--drift-y) - 70px)) scale(.5); } }
 .theme-robot .theme-particle { animation-name: robot-parade; }
@@ -137,7 +137,7 @@ footer { text-align: center; font-size: .9rem; margin-top: 35px; } footer span {
 @keyframes snow-spin { 0% { transform: rotate(0); } 50% { transform: translateY(-35px) rotate(180deg) scale(.9); } 100% { transform: rotate(360deg); } }
 @keyframes ball-bounce { 0%,100% { transform: translateY(0) rotate(0); } 15% { transform: translateY(-100px) rotate(80deg); } 35%,65%,90% { transform: translateY(50px) scale(1.15,.8) rotate(160deg); } 50% { transform: translateY(-55px) rotate(200deg); } 78% { transform: translateY(-15px) rotate(280deg); } }
 @keyframes rainbow-grow { 0%,100% { transform: scale(1); } 30% { transform: scale(.6) translateY(35px); opacity: .4; } 65% { transform: scale(1.4) translateY(-15px); opacity: 1; } 85% { transform: scale(1.2); } }
-.stardust { position: fixed; inset: 0; z-index: 0; pointer-events: none; overflow: hidden; }
+.stardust { position: fixed; inset: 0; z-index: 2; pointer-events: none; overflow: hidden; }
 .stardust span { position: absolute; font-size: var(--size); color: var(--color); opacity: 0; }
 .stardust.shimmering span { animation: dust-twinkle 1.8s ease-in-out both; animation-delay: var(--delay); }
 @keyframes dust-twinkle { 0%,100% { opacity: 0; transform: translateY(16px) scale(.3) rotate(0); } 25%,60% { opacity: .9; transform: translateY(-12px) scale(1) rotate(35deg); } }
@@ -154,3 +154,57 @@ footer { text-align: center; font-size: .9rem; margin-top: 35px; } footer span {
 @media (prefers-reduced-motion: reduce) { *, *::before { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; } }
 @media (prefers-reduced-motion: reduce) { .stardust.shimmering span { animation: none !important; opacity: .65; } .burning .fire-bed span { animation: none !important; } .burning .smoke-bed span { animation: none !important; opacity: .35; } }
 @media (prefers-reduced-motion: reduce) { .theme-particle { animation: none !important; opacity: .65; } .screen-actor { display: none; } .scene.roaming .object { visibility: visible; } }
+
+/* En tydligare lekyta för små fingrar: stora figurer och korta ord. */
+body { background-image: radial-gradient(#b8e2f4 2px, transparent 2px); background-size: 32px 32px; }
+main { max-width: 1180px; padding: 30px 24px 24px; }
+header { margin-bottom: 28px; }
+.eyebrow { border: 0; background: transparent; color: #ed4e89; padding: 0; font-size: 1.8rem; letter-spacing: .4em; box-shadow: none; transform: none; }
+h1 { margin: 6px 0 10px; font-size: clamp(2.6rem, 6vw, 4.7rem); line-height: 1.15; letter-spacing: -.035em; text-shadow: 3px 4px 0 #fff; }
+header > p { font-size: clamp(1.1rem, 3vw, 1.35rem); font-weight: 800; }
+.play-controls { display: flex; justify-content: center; flex-wrap: wrap; gap: 12px; margin-top: 18px; }
+.sound-toggle { margin: 0; min-height: 52px; padding: 12px 20px; border-radius: 18px; border-width: 3px; box-shadow: 0 4px 0 #302252; }
+.sound-toggle[aria-pressed="true"] { background: #e5ffae; }
+.calm-toggle[aria-pressed="false"] { background: #fff; }
+.calm-toggle[aria-pressed="true"] { background: #bfeccf; }
+.playground { grid-template-columns: repeat(3,minmax(0,1fr)); gap: 24px; align-items: stretch; }
+.toy, .toaster-card, .rocket-card, .toy:nth-child(n+3):nth-child(odd), .toy:nth-child(n+3):nth-child(even) { transform: none; }
+.toy { position: relative; padding: 18px; border: 3px solid #443061; border-radius: 36px; box-shadow: 0 7px 0 #443061; transition: box-shadow .18s, border-color .18s; -webkit-tap-highlight-color: transparent; }
+.toy-heading { justify-content: center; gap: 0; }
+h2 { font-size: 1.45rem; line-height: 1.3; text-align: center; }
+.toy-heading > span:last-child { position: absolute; right: 18px; top: 18px; font-size: 1.4rem; margin: 0; opacity: .65; }
+.scene { height: 245px; margin: 8px 0 0; }
+.extra-scene::before { width: 214px; height: 214px; border: 3px dashed #ffffff8c; background: #ffffff38; }
+.object { width: 170px; height: 180px; min-width: 64px; min-height: 64px; display: grid; place-items: center; font-size: 128px; line-height: 1; }
+.figure-button { user-select: none; }
+.status { margin: 8px auto 2px; min-height: 48px; max-width: 100%; width: fit-content; display: grid; place-items: center; background: #ffffffa6; border-radius: 22px; padding: 10px 20px; font-size: 1.1rem; line-height: 1.3; }
+.toy.playing { border-color: #6c3db0; box-shadow: 0 7px 0 #443061, inset 0 0 0 5px #ffffff9c; }
+.toy.tap-pop .extra-scene::before { background: #ffffff75; }
+.toy.playing .toy-heading > span:last-child { opacity: 1; color: #6c3db0; }
+.lever { width: 50px; height: 36px; left: -17px; border-radius: 12px; }
+.lever::before { inset: -8px; }
+.rocket { font-size: 126px; }
+#launch { margin-top: 14px; width: 100%; min-height: 84px; padding: 13px 16px; font-size: 1rem; }
+.rocket-card .status { font-size: 1.1rem; }
+.effect { top: 26px; }
+[data-scene="icecream"] .effect { top: 12px; }
+.frog-pond { bottom: 30px; }
+.launch-effects { height: 130px; }
+.fire-bed span { font-size: clamp(48px,6vw,78px); }
+.butter-screen { background: linear-gradient(130deg,#ffd73555,#ffed9955 40%,#ffc50055); }
+button:focus-visible { outline: 4px solid #6c3db0; outline-offset: 5px; }
+.figure-button:focus-visible, .toaster:focus-visible { outline: 4px dashed #6c3db0; }
+footer { font-size: 1rem; font-weight: 800; margin-top: 30px; }
+@media (hover: hover) { .toy:hover { border-color: #6c3db0; box-shadow: 0 9px 0 #443061, inset 0 0 0 3px #ffffff8c; } }
+@media (max-width: 999px) { .playground { grid-template-columns: repeat(2,minmax(0,1fr)); } }
+@media (max-width: 599px) { main { padding: 22px 18px; } .playground { grid-template-columns: 1fr; gap: 22px; } .toy { padding: 18px; } .scene { height: 240px; } .play-controls { gap: 10px; } .sound-toggle { padding: 11px 16px; } }
+.calm-play .theme-particle { animation: none; opacity: .6; }
+.calm-play .stardust.shimmering span { animation: none; opacity: .4; }
+.calm-play .screen-actor { display: none; }
+.calm-play .scene.roaming .object { visibility: visible; }
+.calm-play .rocket-scene.preparing .rocket { animation: none; }
+.calm-play .extra-scene.active .object { animation: gentle-bob 1.8s ease-in-out both; }
+@keyframes gentle-bob { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-12px) rotate(4deg); } }
+.calm-play .burning .fire-bed span, .calm-play .burning .smoke-bed span { animation: none; }
+.calm-play .burning .smoke-bed span { opacity: .3; }
+@media (prefers-reduced-motion: reduce) { .toy, .sound-toggle { transition: none; } }

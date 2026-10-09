@@ -1,5 +1,13 @@
 # Tryck & studs!
 
+## En enklare lekyta för småbarn
+
+Figurerna är större och alla kort går att trycka på. Namnen är korta och sidan använder små utrop som ”Kvack!” och ”Tittut!” i stället för långa instruktioner. Korten markerar när en animation pågår och svarar visuellt när du trycker.
+
+Ljuden har lägre volym och mjukare klang. **Lugnare** högst upp ger färre bakgrundsfigurer och mindre rörelse. Tryck på samma knapp igen för att återgå till fullt bus. Inställningen för minskad rörelse på datorn eller mobilen respekteras också.
+
+På stor skärm visas tre kort i bredd, på surfplatta två och på mindre mobilskärmar ett. Inga konton eller köp behövs och sidan fungerar utan internet.
+
 En hemsida att lära sig med, med tjugo färgglada leksaker. Tryck direkt på figurerna för att starta animationerna. Raketen startas genom att trycka på raketen eller den stora röda knappen, och fyller skärmens nederkant med eld och rök. Klick på sidan sprider stjärnstoft över bakgrunden. Effekterna försvinner efter en stund och blockerar inte andra klick.
 
 Tryck på en figur eller på dess kort. Varje leksak fyller bakgrunden med passande saker: grodor, blommor, ballonger, snö och annat. Brödrosten sprider ett halvtransparent gult smörlager över skärmen. Robotarna kommer fram bakom kortet och dansar. Bilen kör ut ur kortet och runt skärmen, och enhörningen flyger runt innan den återvänder. Effekterna försvinner automatiskt.
@@ -14,7 +22,7 @@ Alla går att använda igen, även med tangentbordets Tab och Enter eller mellan
 2. Klicka på **Repository → Show in Explorer**.
 3. Kopiera de fyra nya filerna till projektmappen. Välj att ersätta de gamla filerna.
 4. Dubbelklicka på `index.html` för att prova uppdateringen lokalt.
-5. I GitHub Desktop skriver du `Tjugo figurer, stjärnstoft och raketeld` under **Summary** och klickar på **Commit to main**.
+5. I GitHub Desktop skriver du `Större figurer och enklare lek för småbarn` under **Summary** och klickar på **Commit to main**.
 6. Klicka på **Push origin**. GitHub Pages uppdaterar den befintliga hemsidan efter en stund. Uppdatera webbläsaren för att se den nya versionen.
 
 ## Öppna hemsidan

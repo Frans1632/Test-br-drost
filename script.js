@@ -10,6 +10,8 @@ const breadButton = document.querySelector('#bread');
 const toasterButton = document.querySelector('#toaster');
 const rocketButtonLabel = launchButton.textContent;
 const rocketButton = document.querySelector('#rocket');
+const toastIdleText = toastStatus.textContent;
+const rocketIdleText = rocketStatus.textContent;
 
 // En liten väntfunktion. Tiden anges i millisekunder: 1000 = en sekund.
 const wait = (milliseconds) => new Promise(resolve => setTimeout(resolve, milliseconds));
@@ -22,6 +24,7 @@ let ignoreNextClick = false;
 async function toastBread() {
   if (toasting) return;
   toasting = true;
+  setToyBusy(toasterButton, true);
   playToySound('toast');
   fillBackground('toast', toasterButton);
   lever.disabled = true;
@@ -29,19 +32,20 @@ async function toastBread() {
   toasterButton.disabled = true;
   lever.style.top = '62px';
   toastScene.classList.add('toasting');
-  toastStatus.textContent = 'Rostar… håll i hatten!';
+  toastStatus.textContent = 'Rostar…';
   await wait(900);
   toastScene.classList.remove('toasting');
   toastScene.classList.add('popping');
   lever.style.top = '0px';
-  toastStatus.textContent = 'Hopp! Frukosten flyger!';
+  toastStatus.textContent = 'Hopp!';
   await wait(1400);
   toastScene.classList.remove('popping');
   lever.disabled = false;
   breadButton.disabled = false;
   toasterButton.disabled = false;
   toasting = false;
-  toastStatus.textContent = 'En gång till?';
+  setToyBusy(toasterButton, false);
+  toastStatus.textContent = toastIdleText;
 }
 
 breadButton.addEventListener('click', toastBread);
@@ -59,24 +63,24 @@ lever.addEventListener('pointerdown', (event) => {
 
 // Figurerna delar samma klickfunktion, men har egna rörelser och bakgrunder.
 const toySettings = {
-  balloon: { message: 'Hej då, ballongen! Oj, den kom tillbaka.', emoji: '🎈' },
-  flower: { message: 'Plask! Nu växer det så det knakar.', emoji: '🌷' },
-  egg: { message: 'Pip pip! En liten kyckling!', emoji: '🥚', surprise: '🐣' },
-  gift: { message: 'Tittut! En nalle till dig!', emoji: '🎁', surprise: '🧸' },
-  drum: { message: 'Bum, ba, bum! Vilken trumvirvel!', emoji: '🥁' },
-  icecream: { message: 'Strösselregn! Alla färger på toppen!', emoji: '🍦' },
-  wishing: { message: 'En snurr för din hemliga önskan!', emoji: '⭐' },
-  frog: { message: 'Kvack! Jaga flugan, skutta, snurra… PLASK!', emoji: '🐸', duration: 3200 },
-  robot: { message: 'Beep boop! Robotarna kommer fram — dags för disco!', emoji: '🤖', duration: 3600 },
-  duck: { message: 'Kvack kvack! Plask i badet!', emoji: '🦆' },
-  butterfly: { message: 'Fladder, fladder! En flygtur bland färgerna.', emoji: '🦋' },
-  car: { message: 'Tut tut! Ut ur kortet, runt skärmen och hem igen!', emoji: '🚗', duration: 4400, roam: true },
-  bee: { message: 'Bzzzz! Där är min favoritblomma!', emoji: '🐝' },
-  dinosaur: { message: 'Duns! Duns! Ett litet dinosaurievrål!', emoji: '🦖' },
-  unicorn: { message: 'Flyg, lilla enhörning! En magisk tur runt skärmen!', emoji: '🦄', duration: 4400, roam: true },
-  snowman: { message: 'Snurr och snö! Vilket vinterkalas!', emoji: '⛄' },
-  football: { message: 'Boing, boing, boing!', emoji: '⚽' },
-  rainbow: { message: 'Regn, sol och alla regnbågens färger!', emoji: '🌈' }
+  balloon: { message: 'Hejdå! Hej igen!', emoji: '🎈' },
+  flower: { message: 'Plask! Väx!', emoji: '🌷' },
+  egg: { message: 'Pip pip!', emoji: '🥚', surprise: '🐣' },
+  gift: { message: 'Tittut!', emoji: '🎁', surprise: '🧸' },
+  drum: { message: 'Bum bum!', emoji: '🥁' },
+  icecream: { message: 'Strössel! Mums!', emoji: '🍦' },
+  wishing: { message: 'Snurr!', emoji: '⭐' },
+  frog: { message: 'Kvack! Plask!', emoji: '🐸', duration: 3200 },
+  robot: { message: 'Beep boop! Dansa!', emoji: '🤖', duration: 3600 },
+  duck: { message: 'Kvack kvack!', emoji: '🦆' },
+  butterfly: { message: 'Fladder!', emoji: '🦋' },
+  car: { message: 'Tut tut! Brum!', emoji: '🚗', duration: 4400, roam: true },
+  bee: { message: 'Bzzzz!', emoji: '🐝' },
+  dinosaur: { message: 'Duns! Raaawr!', emoji: '🦖' },
+  unicorn: { message: 'Flyg! Magi!', emoji: '🦄', duration: 4400, roam: true },
+  snowman: { message: 'Snurr! Snö!', emoji: '⛄' },
+  football: { message: 'Boing boing!', emoji: '⚽' },
+  rainbow: { message: 'Alla färger!', emoji: '🌈' }
 };
 
 document.querySelectorAll('[data-toy]').forEach(button => {
@@ -86,11 +90,13 @@ document.querySelectorAll('[data-toy]').forEach(button => {
     const settings = toySettings[name];
     const scene = document.querySelector(`[data-scene="${name}"]`);
     const status = document.querySelector(`[data-status="${name}"]`);
+    const idleText = status.textContent;
     const object = scene.querySelector('.object');
     button.disabled = true;
+    setToyBusy(button, true);
     playToySound(name);
     fillBackground(name, button);
-    if (settings.roam && !reducedMotion.matches) roamScreen(name, button, scene, settings.duration);
+    if (settings.roam && !useGentleMotion()) roamScreen(name, button, scene, settings.duration);
     scene.classList.add('active');
     status.textContent = settings.message;
     if (settings.surprise) {
@@ -103,7 +109,8 @@ document.querySelectorAll('[data-toy]').forEach(button => {
     scene.classList.remove('active');
     object.textContent = settings.emoji;
     button.disabled = false;
-    status.textContent = 'En gång till?';
+    setToyBusy(button, false);
+    status.textContent = idleText;
   });
 });
 lever.addEventListener('pointermove', (event) => {
@@ -135,6 +142,7 @@ async function launchRocket() {
   if (launchButton.disabled) return;
   launchButton.disabled = true;
   rocketButton.disabled = true;
+  setToyBusy(rocketButton, true);
   playToySound('rocket');
   fillBackground('rocket', rocketButton);
   showLaunchEffects();
@@ -148,14 +156,15 @@ async function launchRocket() {
   countdown.textContent = '';
   rocketScene.classList.remove('preparing');
   rocketScene.classList.add('flying');
-  rocketStatus.textContent = 'Woosh! Mot stjärnorna!';
+  rocketStatus.textContent = 'Woosh!';
   launchButton.textContent = 'På rymdäventyr…';
   await wait(1800);
   rocketScene.classList.remove('flying');
   launchButton.disabled = false;
   rocketButton.disabled = false;
+  setToyBusy(rocketButton, false);
   launchButton.textContent = rocketButtonLabel;
-  rocketStatus.textContent = 'Tillbaka för ett nytt äventyr.';
+  rocketStatus.textContent = rocketIdleText;
 }
 launchButton.addEventListener('click', launchRocket);
 rocketButton.addEventListener('click', launchRocket);
@@ -165,7 +174,14 @@ rocketButton.addEventListener('click', launchRocket);
 const dustLayer = document.querySelector('#stardust');
 const launchEffects = document.querySelector('#launch-effects');
 const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
-for (let i = 0; i < 90; i++) {
+let calmEnabled = false;
+function useGentleMotion() { return calmEnabled || reducedMotion.matches; }
+function setToyBusy(button, busy) {
+  const card = button.closest('.toy');
+  card.classList.toggle('playing', busy);
+  card.setAttribute('aria-busy', String(busy));
+}
+for (let i = 0; i < 60; i++) {
   const star = document.createElement('span');
   star.textContent = i % 3 === 0 ? '✧' : '✦';
   star.style.cssText = `left:${Math.random()*100}%;top:${Math.random()*100}%;--delay:${Math.random()*.5}s;--size:${12+Math.random()*25}px;--color:${['#f5aa00','#a54df1','#f14395','#06a9be'][i%4]}`;
@@ -185,13 +201,13 @@ for (let i = 0; i < 24; i++) {
 let dustTimer;
 let fireTimer;
 document.addEventListener('click', event => {
-  if (event?.target?.closest('#sound-toggle')) return;
+  if (event?.target?.closest('.play-controls')) return;
   if (event?.target && !event.target.closest('.toy')) playToySound('stardust');
   clearTimeout(dustTimer);
   dustLayer.classList.remove('shimmering');
   void dustLayer.offsetWidth; // Starta om animationen vid nästa klick.
   dustLayer.classList.add('shimmering');
-  dustTimer = setTimeout(() => dustLayer.classList.remove('shimmering'), reducedMotion.matches ? 700 : 2400);
+  dustTimer = setTimeout(() => dustLayer.classList.remove('shimmering'), useGentleMotion() ? 700 : 2400);
 });
 function showLaunchEffects() {
   clearTimeout(fireTimer);
@@ -202,6 +218,12 @@ function showLaunchEffects() {
 // Ett klick på kortets tomma yta använder samma knapp som figuren.
 // Klick på en riktig knapp hanteras bara av knappen själv.
 document.querySelectorAll('.toy').forEach(card => {
+  let tapTimer;
+  card.addEventListener('pointerdown', () => {
+    clearTimeout(tapTimer);
+    card.classList.add('tap-pop');
+    tapTimer = setTimeout(() => card.classList.remove('tap-pop'), 180);
+  });
   card.addEventListener('click', event => {
     if (event.target.closest('button')) return;
     const control = card.querySelector('[data-toy], #toaster, #launch');
@@ -232,12 +254,13 @@ function fillBackground(name, source) {
   const originX = rect.left + rect.width / 2;
   const originY = rect.top + rect.height / 2;
   const palette = ['#ff3e8b','#ffc400','#17bfc5','#8947ef','#ff7045'];
-  for (let i = 0; i < 48; i++) {
+  const particleCount = useGentleMotion() ? 12 : 32;
+  for (let i = 0; i < particleCount; i++) {
     const particle = document.createElement('span');
     const symbols = backgroundThemes[name];
     const symbol = symbols[i % symbols.length];
     const targetX = (i % 8 + .2 + Math.random() * .6) / 8 * window.innerWidth;
-    const targetY = (Math.floor(i / 8) + .2 + Math.random() * .6) / 6 * window.innerHeight;
+    const targetY = (Math.floor(i / 8) + .2 + Math.random() * .6) / Math.ceil(particleCount / 8) * window.innerHeight;
     const duration = name === 'robot' ? 4200 : 4600;
     particle.className = symbol === 'sprinkle' ? 'theme-particle sprinkle-particle' : 'theme-particle';
     particle.textContent = symbol === 'sprinkle' ? '' : symbol;
@@ -247,7 +270,7 @@ function fillBackground(name, source) {
   backgroundTimer = setTimeout(() => {
     themeBackground.replaceChildren();
     butterScreen.classList.remove('spread');
-  }, reducedMotion.matches ? 1400 : 5200);
+  }, useGentleMotion() ? 1400 : 5200);
 }
 
 // Figuren får en kopia i ett lager utanför korten. CSS flyttar den
@@ -286,14 +309,18 @@ function getAudioContext() {
   if (!audioContext) {
     audioContext = new AudioContextClass();
     masterVolume = audioContext.createGain();
-    masterVolume.gain.value = soundEnabled ? .22 : 0;
+    masterVolume.gain.value = soundEnabled ? .14 : 0;
     const compressor = audioContext.createDynamicsCompressor();
     compressor.threshold.value = -18;
     compressor.knee.value = 18;
     compressor.ratio.value = 8;
     compressor.attack.value = .003;
     compressor.release.value = .2;
-    masterVolume.connect(compressor);
+    const soften = audioContext.createBiquadFilter();
+    soften.type = 'lowpass';
+    soften.frequency.value = 3200;
+    masterVolume.connect(soften);
+    soften.connect(compressor);
     compressor.connect(audioContext.destination);
     noiseBuffer = audioContext.createBuffer(1, audioContext.sampleRate * 2, audioContext.sampleRate);
     const samples = noiseBuffer.getChannelData(0);
@@ -430,6 +457,15 @@ soundToggle.addEventListener('click', () => {
     activeSoundSources.clear();
   } else {
     const ctx = getAudioContext();
-    if (ctx && masterVolume) masterVolume.gain.setValueAtTime(.22, ctx.currentTime);
+    if (ctx && masterVolume) masterVolume.gain.setValueAtTime(.14, ctx.currentTime);
   }
+});
+
+const calmToggle = document.querySelector('#calm-toggle');
+calmToggle.addEventListener('click', () => {
+  calmEnabled = !calmEnabled;
+  document.body.classList.toggle('calm-play', calmEnabled);
+  calmToggle.setAttribute('aria-pressed', String(calmEnabled));
+  calmToggle.setAttribute('aria-label', calmEnabled ? 'Stäng av lugnare lek' : 'Slå på lugnare lek');
+  calmToggle.textContent = calmEnabled ? '🌿 Lugn lek på' : '🌿 Lugnare';
 });

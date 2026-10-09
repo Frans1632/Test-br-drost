@@ -17,14 +17,14 @@
   <div id="launch-effects" class="launch-effects" aria-hidden="true"><div class="smoke-bed"></div><div class="fire-bed"></div></div>
   <main>
     <header>
-      <span class="eyebrow">EN LITEN LEKPLATS</span>
+      <span class="eyebrow" aria-hidden="true">✦ ✿ ✦</span>
       <h1>Tryck <span>&</span> studs!</h1>
-      <p>Små saker. Stora upptåg.</p>
-      <button id="sound-toggle" class="sound-toggle" type="button" aria-pressed="true">🔊 Ljud på</button>
+      <p>Tryck på en kompis!</p>
+      <div class="play-controls"><button id="sound-toggle" class="sound-toggle" type="button" aria-pressed="true">🔊 Ljud på</button><button id="calm-toggle" class="sound-toggle calm-toggle" type="button" aria-pressed="false" aria-label="Slå på lugnare lek">🌿 Lugnare</button></div>
     </header>
     <div class="playground">
       <section class="toy toaster-card" aria-labelledby="toast-title">
-        <div class="toy-heading"><span class="number">01</span><h2 id="toast-title">Brödhoppet</h2><span aria-hidden="true">✦</span></div>
+        <div class="toy-heading"><h2 id="toast-title">Bröd</h2><span aria-hidden="true">✦</span></div>
         <div class="scene toast-scene" id="toast-scene">
           <button class="bread figure-button" id="bread" type="button" aria-label="Få brödet att hoppa"><span class="bread-slice" aria-hidden="true"><span>• ◡ •</span></span></button>
           <button class="toaster" id="toaster" type="button" aria-label="Starta brödrosten"><span class="face" aria-hidden="true">• ◡ •</span><span class="dial" aria-hidden="true"></span></button>
@@ -34,10 +34,9 @@
           <div class="ground"></div>
         </div>
         <p class="status" id="toast-status" role="status">Redo för ett hopp?</p>
-        <p class="instruction">Tryck på brödet eller brödrosten! <span>Du kan också dra i spaken.</span></p>
       </section>
       <section class="toy rocket-card" aria-labelledby="rocket-title">
-        <div class="toy-heading"><span class="number">02</span><h2 id="rocket-title">Mot rymden!</h2><span aria-hidden="true">✧</span></div>
+        <div class="toy-heading"><h2 id="rocket-title">Raket</h2><span aria-hidden="true">✧</span></div>
         <div class="scene rocket-scene" id="rocket-scene">
           <span class="star star-one" aria-hidden="true">✦</span><span class="star star-two" aria-hidden="true">✧</span><span class="star star-three" aria-hidden="true">✦</span>
           <button class="rocket figure-button" id="rocket" type="button" aria-label="Starta raketen med eld och rök">🚀</button>
@@ -48,115 +47,97 @@
         <button class="launch-button" id="launch" type="button">Tryck inte på den stora röda knappen</button>
       </section>
       <section class="toy balloon-card" aria-labelledby="balloon-title">
-        <div class="toy-heading"><span class="number">03</span><h2 id="balloon-title">Ballongbus</h2><span aria-hidden="true">✦</span></div>
+        <div class="toy-heading"><h2 id="balloon-title">Ballong</h2><span aria-hidden="true">✦</span></div>
         <div class="scene extra-scene" data-scene="balloon"><button class="object figure-button" data-toy="balloon" type="button" aria-label="Släpp ballongen!">🎈</button><span class="effect" aria-hidden="true">✨</span></div>
         <p class="status" data-status="balloon" role="status">En ballong på rymmen?</p>
-        <p class="instruction">Tryck på figuren eller kortet!</p>
       </section>
       <section class="toy flower-card" aria-labelledby="flower-title">
-        <div class="toy-heading"><span class="number">04</span><h2 id="flower-title">Blomsterfnatt</h2><span aria-hidden="true">✿</span></div>
+        <div class="toy-heading"><h2 id="flower-title">Blomma</h2><span aria-hidden="true">✿</span></div>
         <div class="scene extra-scene" data-scene="flower"><button class="object figure-button" data-toy="flower" type="button" aria-label="Vattna blomman!">🌷</button><span class="effect" aria-hidden="true">💧</span></div>
         <p class="status" data-status="flower" role="status">En liten törstig blomma.</p>
-        <p class="instruction">Tryck på figuren eller kortet!</p>
       </section>
       <section class="toy egg-card" aria-labelledby="egg-title">
-        <div class="toy-heading"><span class="number">05</span><h2 id="egg-title">Knack, knack!</h2><span aria-hidden="true">✦</span></div>
+        <div class="toy-heading"><h2 id="egg-title">Ägg</h2><span aria-hidden="true">✦</span></div>
         <div class="scene extra-scene" data-scene="egg"><button class="object figure-button" data-toy="egg" type="button" aria-label="Knacka på ägget!">🥚</button><span class="effect" aria-hidden="true">✨</span></div>
         <p class="status" data-status="egg" role="status">Vem gömmer sig här?</p>
-        <p class="instruction">Tryck på figuren eller kortet!</p>
       </section>
       <section class="toy gift-card" aria-labelledby="gift-title">
-        <div class="toy-heading"><span class="number">06</span><h2 id="gift-title">Överraskningen</h2><span aria-hidden="true">✧</span></div>
+        <div class="toy-heading"><h2 id="gift-title">Present</h2><span aria-hidden="true">✧</span></div>
         <div class="scene extra-scene" data-scene="gift"><button class="object figure-button" data-toy="gift" type="button" aria-label="Öppna paketet!">🎁</button><span class="effect" aria-hidden="true">🎊</span></div>
         <p class="status" data-status="gift" role="status">Ett paket fullt av bus.</p>
-        <p class="instruction">Tryck på figuren eller kortet!</p>
       </section>
       <section class="toy drum-card" aria-labelledby="drum-title">
-        <div class="toy-heading"><span class="number">07</span><h2 id="drum-title">Bum, ba, bum!</h2><span aria-hidden="true">♫</span></div>
+        <div class="toy-heading"><h2 id="drum-title">Trumma</h2><span aria-hidden="true">♫</span></div>
         <div class="scene extra-scene" data-scene="drum"><button class="object figure-button" data-toy="drum" type="button" aria-label="Slå på trumman!">🥁</button><span class="effect" aria-hidden="true">♫ ♪</span></div>
         <p class="status" data-status="drum" role="status">Dags för en liten trumvirvel.</p>
-        <p class="instruction">Tryck på figuren eller kortet!</p>
       </section>
       <section class="toy icecream-card" aria-labelledby="icecream-title">
-        <div class="toy-heading"><span class="number">08</span><h2 id="icecream-title">Glasskalas</h2><span aria-hidden="true">✦</span></div>
+        <div class="toy-heading"><h2 id="icecream-title">Glass</h2><span aria-hidden="true">✦</span></div>
         <div class="scene extra-scene" data-scene="icecream"><button class="object figure-button" data-toy="icecream" type="button" aria-label="Toppa glassen!">🍦</button><span class="effect sprinkles" aria-hidden="true"><i style="--i:0;--sprinkle-color:#ed287c"></i><i style="--i:1;--sprinkle-color:#24bfc0"></i><i style="--i:2;--sprinkle-color:#f9c700"></i><i style="--i:3;--sprinkle-color:#8845ed"></i><i style="--i:4;--sprinkle-color:#fc6637"></i><i style="--i:5;--sprinkle-color:#ed287c"></i><i style="--i:6;--sprinkle-color:#24bfc0"></i><i style="--i:7;--sprinkle-color:#f9c700"></i><i style="--i:8;--sprinkle-color:#8845ed"></i><i style="--i:9;--sprinkle-color:#fc6637"></i><i style="--i:10;--sprinkle-color:#ed287c"></i><i style="--i:11;--sprinkle-color:#24bfc0"></i><i style="--i:12;--sprinkle-color:#f9c700"></i><i style="--i:13;--sprinkle-color:#8845ed"></i><i style="--i:14;--sprinkle-color:#fc6637"></i><i style="--i:15;--sprinkle-color:#ed287c"></i><i style="--i:16;--sprinkle-color:#24bfc0"></i><i style="--i:17;--sprinkle-color:#f9c700"></i></span></div>
         <p class="status" data-status="icecream" role="status">Lite extra på toppen?</p>
-        <p class="instruction">Tryck på figuren eller kortet!</p>
       </section>
       <section class="toy wishing-card" aria-labelledby="wishing-title">
-        <div class="toy-heading"><span class="number">09</span><h2 id="wishing-title">Önskestjärnan</h2><span aria-hidden="true">✧</span></div>
+        <div class="toy-heading"><h2 id="wishing-title">Stjärna</h2><span aria-hidden="true">✧</span></div>
         <div class="scene extra-scene" data-scene="wishing"><button class="object figure-button" data-toy="wishing" type="button" aria-label="Snurra stjärnan!">⭐</button><span class="effect" aria-hidden="true">✧ ✦ ✧</span></div>
         <p class="status" data-status="wishing" role="status">Önska något riktigt tokigt.</p>
-        <p class="instruction">Tryck på figuren eller kortet!</p>
       </section>
       <section class="toy frog-card" aria-labelledby="frog-title">
-        <div class="toy-heading"><span class="number">10</span><h2 id="frog-title">Grodskutt</h2><span aria-hidden="true">✿</span></div>
+        <div class="toy-heading"><h2 id="frog-title">Groda</h2><span aria-hidden="true">✿</span></div>
         <div class="scene extra-scene" data-scene="frog"><button class="object figure-button" data-toy="frog" type="button" aria-label="Hoppa, grodan!">🐸</button><span class="effect frog-splash" aria-hidden="true">💦</span><span class="frog-fly" aria-hidden="true">🪰</span><span class="frog-pond" aria-hidden="true"></span></div>
         <p class="status" data-status="frog" role="status">Den här grodan har spring i benen.</p>
-        <p class="instruction">Tryck på figuren eller kortet!</p>
       </section>
       <section class="toy robot-card" aria-labelledby="robot-title">
-        <div class="toy-heading"><span class="number">11</span><h2 id="robot-title">Robotdisco</h2><span aria-hidden="true">✦</span></div>
+        <div class="toy-heading"><h2 id="robot-title">Robot</h2><span aria-hidden="true">✦</span></div>
         <div class="scene extra-scene" data-scene="robot"><button class="object figure-button" data-toy="robot" type="button" aria-label="Dansa, roboten!">🤖</button><span class="effect" aria-hidden="true">♫</span></div>
         <p class="status" data-status="robot" role="status">En robot med dans i benen.</p>
-        <p class="instruction">Tryck på figuren eller kortet!</p>
       </section>
       <section class="toy duck-card" aria-labelledby="duck-title">
-        <div class="toy-heading"><span class="number">12</span><h2 id="duck-title">Ankplask</h2><span aria-hidden="true">✦</span></div>
+        <div class="toy-heading"><h2 id="duck-title">Anka</h2><span aria-hidden="true">✦</span></div>
         <div class="scene extra-scene" data-scene="duck"><button class="object figure-button" data-toy="duck" type="button" aria-label="Plaska, ankan!">🦆</button><span class="effect" aria-hidden="true">💦</span></div>
         <p class="status" data-status="duck" role="status">En anka redo för ett dopp.</p>
-        <p class="instruction">Tryck på figuren eller kortet!</p>
       </section>
       <section class="toy butterfly-card" aria-labelledby="butterfly-title">
-        <div class="toy-heading"><span class="number">13</span><h2 id="butterfly-title">Vingvimmel</h2><span aria-hidden="true">✦</span></div>
+        <div class="toy-heading"><h2 id="butterfly-title">Fjäril</h2><span aria-hidden="true">✦</span></div>
         <div class="scene extra-scene" data-scene="butterfly"><button class="object figure-button" data-toy="butterfly" type="button" aria-label="Flyg, fjärilen!">🦋</button><span class="effect" aria-hidden="true">✨</span></div>
         <p class="status" data-status="butterfly" role="status">Vingar fulla av färg.</p>
-        <p class="instruction">Tryck på figuren eller kortet!</p>
       </section>
       <section class="toy car-card" aria-labelledby="car-title">
-        <div class="toy-heading"><span class="number">14</span><h2 id="car-title">Tuta och kör!</h2><span aria-hidden="true">✦</span></div>
+        <div class="toy-heading"><h2 id="car-title">Bil</h2><span aria-hidden="true">✦</span></div>
         <div class="scene extra-scene" data-scene="car"><button class="object figure-button" data-toy="car" type="button" aria-label="Kör bilen!">🚗</button><span class="effect" aria-hidden="true">💨</span></div>
         <p class="status" data-status="car" role="status">Vart ska vi åka idag?</p>
-        <p class="instruction">Tryck på figuren eller kortet!</p>
       </section>
       <section class="toy bee-card" aria-labelledby="bee-title">
-        <div class="toy-heading"><span class="number">15</span><h2 id="bee-title">Bzzzz-bus</h2><span aria-hidden="true">✦</span></div>
+        <div class="toy-heading"><h2 id="bee-title">Bi</h2><span aria-hidden="true">✦</span></div>
         <div class="scene extra-scene" data-scene="bee"><button class="object figure-button" data-toy="bee" type="button" aria-label="Flyg, biet!">🐝</button><span class="effect" aria-hidden="true">🌼</span></div>
         <p class="status" data-status="bee" role="status">Ett bi på blomsterjakt.</p>
-        <p class="instruction">Tryck på figuren eller kortet!</p>
       </section>
       <section class="toy dinosaur-card" aria-labelledby="dinosaur-title">
-        <div class="toy-heading"><span class="number">16</span><h2 id="dinosaur-title">Dinosauriestamp</h2><span aria-hidden="true">✦</span></div>
+        <div class="toy-heading"><h2 id="dinosaur-title">Dinosaurie</h2><span aria-hidden="true">✦</span></div>
         <div class="scene extra-scene" data-scene="dinosaur"><button class="object figure-button" data-toy="dinosaur" type="button" aria-label="Stampa, dinosaurien!">🦖</button><span class="effect" aria-hidden="true">💥</span></div>
         <p class="status" data-status="dinosaur" role="status">Små armar. Stora steg.</p>
-        <p class="instruction">Tryck på figuren eller kortet!</p>
       </section>
       <section class="toy unicorn-card" aria-labelledby="unicorn-title">
-        <div class="toy-heading"><span class="number">17</span><h2 id="unicorn-title">Enhörningsmagi</h2><span aria-hidden="true">✦</span></div>
+        <div class="toy-heading"><h2 id="unicorn-title">Enhörning</h2><span aria-hidden="true">✦</span></div>
         <div class="scene extra-scene" data-scene="unicorn"><button class="object figure-button" data-toy="unicorn" type="button" aria-label="Trolla, enhörningen!">🦄</button><span class="effect" aria-hidden="true">🌈</span></div>
         <p class="status" data-status="unicorn" role="status">Lite magi i manen.</p>
-        <p class="instruction">Tryck på figuren eller kortet!</p>
       </section>
       <section class="toy snowman-card" aria-labelledby="snowman-title">
-        <div class="toy-heading"><span class="number">18</span><h2 id="snowman-title">Snögubbssnurr</h2><span aria-hidden="true">✦</span></div>
+        <div class="toy-heading"><h2 id="snowman-title">Snögubbe</h2><span aria-hidden="true">✦</span></div>
         <div class="scene extra-scene" data-scene="snowman"><button class="object figure-button" data-toy="snowman" type="button" aria-label="Snurra, snögubben!">⛄</button><span class="effect" aria-hidden="true">❄</span></div>
         <p class="status" data-status="snowman" role="status">Den här snögubben älskar snö.</p>
-        <p class="instruction">Tryck på figuren eller kortet!</p>
       </section>
       <section class="toy football-card" aria-labelledby="football-title">
-        <div class="toy-heading"><span class="number">19</span><h2 id="football-title">Bollstuds</h2><span aria-hidden="true">✦</span></div>
+        <div class="toy-heading"><h2 id="football-title">Boll</h2><span aria-hidden="true">✦</span></div>
         <div class="scene extra-scene" data-scene="football"><button class="object figure-button" data-toy="football" type="button" aria-label="Studsa bollen!">⚽</button><span class="effect" aria-hidden="true">💫</span></div>
         <p class="status" data-status="football" role="status">En boll med extra studs.</p>
-        <p class="instruction">Tryck på figuren eller kortet!</p>
       </section>
       <section class="toy rainbow-card" aria-labelledby="rainbow-title">
-        <div class="toy-heading"><span class="number">20</span><h2 id="rainbow-title">Regnbågsregn</h2><span aria-hidden="true">✦</span></div>
+        <div class="toy-heading"><h2 id="rainbow-title">Regnbåge</h2><span aria-hidden="true">✦</span></div>
         <div class="scene extra-scene" data-scene="rainbow"><button class="object figure-button" data-toy="rainbow" type="button" aria-label="Tänd regnbågen!">🌈</button><span class="effect" aria-hidden="true">🌧</span></div>
         <p class="status" data-status="rainbow" role="status">Efter regnet kommer färgerna.</p>
-        <p class="instruction">Tryck på figuren eller kortet!</p>
       </section>
     </div>
-    <footer>Nyfikenhet är den bästa knappen. <span aria-hidden="true">✦</span></footer>
+    <footer>Lek en gång till! <span aria-hidden="true">✦</span></footer>
   </main>
 </body>
 </html>
