@@ -101,13 +101,13 @@ document.querySelectorAll('[data-toy]').forEach(button => {
     status.textContent = settings.message;
     if (settings.surprise) {
       await wait(650);
-      object.textContent = settings.surprise;
+      object.innerHTML = toyArtwork(name === 'egg' ? 'chick' : 'teddy');
       await wait(1150);
     } else {
       await wait(settings.duration || 1800);
     }
     scene.classList.remove('active');
-    object.textContent = settings.emoji;
+    object.innerHTML = toyArtwork(name);
     button.disabled = false;
     setToyBusy(button, false);
     status.textContent = idleText;
@@ -262,7 +262,8 @@ function fillBackground(name, source) {
     const targetY = (Math.floor(i / 8) + .2 + Math.random() * .6) / Math.ceil(particleCount / 8) * window.innerHeight;
     const duration = name === 'robot' ? 4200 : 4600;
     particle.className = symbol === 'sprinkle' ? 'theme-particle sprinkle-particle' : 'theme-particle';
-    particle.textContent = symbol === 'sprinkle' ? '' : symbol;
+    if (illustratedSymbols[symbol]) particle.innerHTML = toyArtwork(illustratedSymbols[symbol]);
+    else particle.textContent = symbol === 'sprinkle' ? '' : symbol;
     particle.style.cssText = `left:${targetX}px;top:${targetY}px;--from-x:${originX-targetX}px;--from-y:${originY-targetY}px;--drift-x:${(Math.random()-.5)*150}px;--drift-y:${(Math.random()-.5)*150}px;--delay:${i*.008}s;--duration:${duration}ms;--particle-size:${24+Math.random()*30}px;--particle-color:${palette[i%palette.length]};--tilt:${(i%2?1:-1)*(15+i%4*10)}deg`;
     themeBackground.append(particle);
   }
@@ -283,7 +284,7 @@ function roamScreen(name, button, scene, duration) {
   const bottom = Math.max(12, window.innerHeight - size - 16);
   const actor = document.createElement('span');
   actor.className = `screen-actor roaming-${name}`;
-  actor.textContent = toySettings[name].emoji;
+  actor.innerHTML = toyArtwork(name);
   actor.style.cssText = `left:${startX}px;top:${startY}px;--actor-size:${size}px;--duration:${duration}ms;--left-x:${16-startX}px;--right-x:${right-startX}px;--top-y:${16-startY}px;--bottom-y:${bottom-startY}px;--middle-y:${window.innerHeight*.45-startY}px`;
   screenActors.append(actor);
   scene.classList.add('roaming');
@@ -292,6 +293,18 @@ function roamScreen(name, button, scene, duration) {
     scene.classList.remove('roaming');
   }, duration);
 }
+
+// Samma ritade figur används i kortet, flygturen och bakgrundseffekten.
+function toyArtwork(name) {
+  return `<svg class="toy-art" viewBox="0 0 160 160" aria-hidden="true" focusable="false"><use href="#toy-${name}"></use></svg>`;
+}
+const illustratedSymbols = {
+  '🧈':'butter', '🚀':'rocket', '🎈':'balloon', '🌼':'flower', '🌸':'flower', '🌷':'flower',
+  '🥚':'egg', '🐣':'chick', '🐥':'chick', '🎁':'gift', '🧸':'teddy', '🥁':'drum',
+  '🍦':'icecream', '⭐':'wishing', '🌟':'wishing', '🐸':'frog', '🤖':'robot',
+  '🦆':'duck', '🦋':'butterfly', '🚗':'car', '🐝':'bee', '🦖':'dinosaur', '🦕':'dinosaur',
+  '🦄':'unicorn', '⛄':'snowman', '⚽':'football', '🌈':'rainbow'
+};
 
 // Ljuden skapas direkt i webbläsaren. Inga ljudfiler behöver laddas ned.
 // Samma ljudfunktion används när man klickar på kortet, figuren eller spaken.

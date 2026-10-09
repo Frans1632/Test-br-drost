@@ -208,3 +208,18 @@ footer { font-size: 1rem; font-weight: 800; margin-top: 30px; }
 .calm-play .burning .fire-bed span, .calm-play .burning .smoke-bed span { animation: none; }
 .calm-play .burning .smoke-bed span { opacity: .3; }
 @media (prefers-reduced-motion: reduce) { .toy, .sound-toggle { transition: none; } }
+
+/* Alla kompisar är ritade med samma kontur, färger och glada ansikten. */
+.toy-library { position: absolute; width: 0; height: 0; overflow: hidden; pointer-events: none; }
+.toy-art { display: block; width: 100%; height: 100%; overflow: visible; pointer-events: none; }
+.object .toy-art { filter: drop-shadow(0 5px 0 #30225216); }
+.object { width: 184px; height: 184px; }
+.theme-particle > .toy-art { width: 1.55em; height: 1.55em; }
+.screen-actor { width: var(--actor-size); height: var(--actor-size); }
+.screen-actor .toy-art { width: 100%; height: 100%; }
+.rocket { width: 148px; height: 184px; left: calc(50% - 74px); bottom: 18px; transform: none; }
+@keyframes blast-off { to { transform: translateY(-420px); } }
+@keyframes rumble { from { transform: translateX(-2px); } to { transform: translateX(2px); } }
+[data-scene="icecream"] .effect.sprinkles { top: 4px; width: 92px; left: calc(50% - 46px); }
+.sprinkles i:nth-child(6n+1) { left: 5px; }.sprinkles i:nth-child(6n+2) { left: 20px; }.sprinkles i:nth-child(6n+3) { left: 35px; }.sprinkles i:nth-child(6n+4) { left: 50px; }.sprinkles i:nth-child(6n+5) { left: 65px; }.sprinkles i:nth-child(6n) { left: 80px; }
+.figure-button:hover:not(:disabled) .toy-art { filter: drop-shadow(0 6px 0 #30225220); }

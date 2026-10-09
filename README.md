@@ -4,6 +4,8 @@
 
 Figurerna är större och alla kort går att trycka på. Namnen är korta och sidan använder små utrop som ”Kvack!” och ”Tittut!” i stället för långa instruktioner. Korten markerar när en animation pågår och svarar visuellt när du trycker.
 
+Figurerna är egna teckningar med samma färgstarka stil och glada ansikten som brödrosten. Samma teckningar används även när bilen och enhörningen lämnar kortet, när många figurer sprids över skärmen och när ägget och presenten öppnas. Teckningarna finns inbyggda i `index.html`, så du behöver inga extra bildfiler.
+
 Ljuden har lägre volym och mjukare klang. Inställningen för minskad rörelse på datorn eller mobilen respekteras också.
 
 På stor skärm visas tre kort i bredd, på surfplatta två och på mindre mobilskärmar ett. Inga konton eller köp behövs och sidan fungerar utan internet.
